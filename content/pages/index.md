@@ -56,7 +56,10 @@ sections:
         text: "**Toxic App Scan - Right Food**\n\nDiscover the hidden truth in your food with Right Food! Whether you're on a clean eating journey, looking for a reliable calorie counter, or want a gluten-free scanner, Right Food has you covered.\_\n"
         image:
           type: Image
-          url: /images/ts.svg
+          url: >-
+            /images/DALL·E 2024-12-04 15.01.05 - A high-quality app icon
+            featuring a shield split into two halves, with one side in vibrant
+            blue and the other in rich green. In the center of the shie.webp
           altText: Third item image
         actions:
           - type: Button
