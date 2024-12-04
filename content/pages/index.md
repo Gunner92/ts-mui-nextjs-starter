@@ -41,7 +41,6 @@ sections:
         title: Third Card Title
         image:
           type: Image
-          url: /images/Screenshot 2024-12-04 at 14.45.02.png
           altText: Third item image
         text: >
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
