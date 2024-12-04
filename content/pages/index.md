@@ -37,7 +37,10 @@ sections:
           pharetra ipsum dolor, et iaculis elit ornare ac.
         image:
           type: Image
-          url: /images/mui-5.svg
+          url: >-
+            /images/DALL·E 2024-09-05 14.46.53 - Create a 3D version of an icon
+            that shows a white airplane in the center of a clock-like shape,
+            placed on an orange background. The clock has bold, wh 1.jpg
           altText: Second item image
         actions:
           - type: Button
