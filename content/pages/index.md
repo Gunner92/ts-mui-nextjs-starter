@@ -47,7 +47,7 @@ sections:
         actions:
           - type: Button
             label: Learn more
-            url: 'https://bgmobiledev.com/jet-lag-manager'
+            url: /jet-lag-manager
             size: medium
             variant: text
             color: primary
