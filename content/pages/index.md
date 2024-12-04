@@ -21,8 +21,7 @@ sections:
         actions:
           - type: Button
             label: Load More
-            url: >-
-              https://apps.apple.com/tr/app/mindful-minutes-mindfulness/id6737522844
+            url: /mind
       - type: Card
         title: Second Card Title
         image:
