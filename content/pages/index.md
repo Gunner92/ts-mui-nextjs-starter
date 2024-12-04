@@ -55,7 +55,7 @@ sections:
         actions:
           - type: Button
             label: Load More
-            url: 'https://docs.netlify.com/visual-editor/overview/'
+            url: /
             size: large
             variant: contained
             color: secondary
