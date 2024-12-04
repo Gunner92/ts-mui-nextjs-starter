@@ -3,7 +3,7 @@ title: Home
 type: Page
 sections:
   - type: CardsSection
-    title: Applications
+    title: Mobile Applications
     subtitle: Section subtitle her
     items:
       - type: Card
