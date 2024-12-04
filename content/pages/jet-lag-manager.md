@@ -5,42 +5,29 @@ sections:
   - type: HeroSection
     title: Jet Lag Manager
     subtitle: Mindfulness Habits
-    text: >+
-      **Mindfulness Minute: Small Steps, Big Changes**
+    text: >
+      **Leave jet lag behind and enjoy your travels!**
 
 
-      Feeling lost in the daily hustle? Mindfulness Minute is designed to help
-      you improve your mental, emotional, and physical well-being with just a
-      few minutes each day.
+      Our app provides personalized tips to help you quickly adjust to new time
+      zones.
 
 
-      **Key Features:**
+      By optimizing your melatonin usage, sunlight exposure, and caffeine
+      intake, you can minimize the effects of jet lag.
 
 
-      Short and Effective Tasks: Integrate mindfulness practices into your daily
-      routine with tasks that take no more than 5 minutes.
+      Sync your body clock properly and start every trip feeling energized.
 
-      Variety of Activities: From breathing exercises to meditation, focus
-      techniques, and gratitude practices – explore tasks across multiple
-      categories.
 
-      Daily Goals: Choose and complete your daily goals to stay motivated and
-      achieve consistent progress.
+      Whether you're on a short or long-haul flight, you'll have all the tips
+      you need for a smooth and comfortable journey!
 
-      Scoring System: Earn points for every completed task and track your
-      progress with a daily total of 100 points.
 
-      Personal Growth: Improve in areas like stress management, creativity,
-      social connections, and productivity.
-
-      Reminders: Stay on track with notifications for morning, midday, and
-      evening motivation.
-
-      Progress Tracking: Monitor your completion stats to transform habits into
-      a positive lifestyle.
-
-      Download now and enjoy a calmer, more mindful life!
-
+      Subscription Information: Jet Lag Manager requires a subscription for
+      creating jet lag plans and personalized suggestions . Available through
+      monthly or yearly options. Subscriptions automatically renew and can be
+      cancelled anytime.
     actions:
       - type: Button
         label: Download Now
