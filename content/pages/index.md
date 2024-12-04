@@ -7,7 +7,7 @@ sections:
     subtitle: ''
     items:
       - type: Card
-        title: Mindful Minutes - Mindfullness
+        title: MINDFUL MINUTES - MINDFULLNESS
         text: >
           Mindfulness Minute: Small Steps, Big Changes
 
