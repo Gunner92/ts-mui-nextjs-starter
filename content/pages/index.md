@@ -40,6 +40,7 @@ sections:
             label: Load More
             url: /jet-lag-manager
             color: secondary
+            variant: contained
       - type: Card
         title: Third Card Title
         image:
