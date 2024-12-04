@@ -24,7 +24,7 @@ sections:
     actions:
       - type: Button
         label: Download Now
-        url: 'https://apps.apple.com/tr/app/mindful-minutes-mindfulness/id6737522844'
+        url: 'https://apps.apple.com/us/app/jet-lag-time-zone-shifter/id6670561167'
         size: large
         variant: contained
         color: primary
