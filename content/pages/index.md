@@ -30,7 +30,7 @@ sections:
             variant: text
             color: primary
       - type: Card
-        title: JET LAG MANAGER
+        title: Jet Lag Manager
         text: >-
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ante
           lorem, tincidunt ac leo efficitur, feugiat tempor odio. Maecenas
