@@ -37,10 +37,7 @@ sections:
 
           Our app provides personalized tips to help you quickly adjust to new
           time zones.By optimizing your melatonin usage, sunlight exposure, and
-          caffeine intake, you can minimize the effects of jet lag.Sync your
-          body clock properly and start every trip feeling energized.Whether
-          you're on a short or long-haul flight, you'll have all the tips you
-          need for a smooth and comfortable journey!
+          caffeine intake, you can minimize the effects of jet lag.
         image:
           type: Image
           url: >-
