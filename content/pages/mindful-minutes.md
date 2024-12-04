@@ -3,7 +3,7 @@ type: Page
 title: Mindful Minutes
 sections:
   - type: HeroSection
-    title: An Empty Page
+    title: Mindful Minutes
     subtitle: The section subtitle
     text: >-
       Add more sections by hovering above or below this one and clicking '+ Add
