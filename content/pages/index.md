@@ -46,7 +46,8 @@ sections:
         actions:
           - type: Button
             label: Download Now
-            url: 'https://docs.netlify.com/visual-editor/overview/'
+            url: >-
+              https://apps.apple.com/tr/app/mindful-minutes-mindfulness/id6737522844
       - type: Card
         title: Second Card Title
         image:
