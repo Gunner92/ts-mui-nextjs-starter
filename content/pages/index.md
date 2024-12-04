@@ -60,7 +60,7 @@ sections:
             variant: contained
             color: secondary
   - type: CardsSection
-    title: iOS Applications
+    title: iOS Mobile Applications
     subtitle: The section subtitle
     items:
       - type: Card
