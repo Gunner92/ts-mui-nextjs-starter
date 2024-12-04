@@ -4,7 +4,7 @@ type: Page
 sections:
   - type: CardsSection
     title: Mobile Applications
-    subtitle: Section subtitle her
+    subtitle: ''
     items:
       - type: Card
         title: Mindful Minutes - Mindfullness
