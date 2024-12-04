@@ -31,7 +31,7 @@ sections:
     subtitle: Section subtitle her
     items:
       - type: Card
-        title: First Card Title
+        title: Mindful Minutes - Mindfullness
         image:
           type: Image
           url: /images/Group 19578.jpg
