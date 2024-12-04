@@ -13,7 +13,7 @@
             {
                 "type": "Link",
                 "label": "Linkedin",
-                "url": "www.linkedin.com/in/burak-guner-ios",
+                "url": "https://www.linkedin.com/in/burak-guner-ios",
                 "underline": "always",
                 "color": "primary"
             }
