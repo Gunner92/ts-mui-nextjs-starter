@@ -21,7 +21,7 @@ sections:
         actions:
           - type: Button
             label: Load More
-            url: /mind
+            url: /mindful-minutes
       - type: Card
         title: Second Card Title
         image:
