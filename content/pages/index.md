@@ -65,10 +65,13 @@ sections:
     items:
       - type: Card
         title: First Item Title
-        text: >-
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ante
-          lorem, tincidunt ac leo efficitur, feugiat tempor odio. Maecenas
-          pharetra ipsum dolor, et iaculis elit ornare ac.
+        text: >
+          Mindfulness Minute: Small Steps, Big Changes
+
+
+          Feeling lost in the daily hustle? Mindfulness Minute is designed to
+          help you improve your mental, emotional, and physical well-being with
+          just a few minutes each day.
         image:
           type: Image
           url: /images/nextjs.svg
