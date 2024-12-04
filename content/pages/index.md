@@ -24,6 +24,7 @@ sections:
             url: /mindful-minutes
             variant: contained
             size: large
+            color: secondary
       - type: Card
         title: Second Card Title
         image:
