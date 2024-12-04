@@ -10,7 +10,7 @@ sections:
         title: Mindful Minutes - Mindfullness
         image:
           type: Image
-          url: /images/Group 19578.jpg
+          url: /images/Screenshot 2024-12-04 at 14.44.13.png
           altText: First item image
         text: >
           Mindfulness Minute: Small Steps, Big Changes
