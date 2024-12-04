@@ -9,6 +9,13 @@
                 "label": "Home",
                 "url": "/",
                 "underline": "hover"
+            },
+            {
+                "type": "Link",
+                "label": "About ME",
+                "url": "www.linkedin.com/in/burak-guner-ios",
+                "underline": "always",
+                "color": "primary"
             }
         ]
     },
