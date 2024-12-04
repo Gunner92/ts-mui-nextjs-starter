@@ -1,6 +1,6 @@
 ---
 type: Page
-title: Mindful Minutes
+title: Jet Lag Manager
 sections:
   - type: HeroSection
     title: Jet Lag Manager
