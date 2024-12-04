@@ -27,7 +27,6 @@ sections:
         title: Second Card Title
         image:
           type: Image
-          url: /images/Screenshot 2024-12-04 at 14.44.05.png
           altText: Second item image
         text: >
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
