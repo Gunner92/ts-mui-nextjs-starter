@@ -25,7 +25,7 @@ sections:
         actions:
           - type: Button
             label: Learn more
-            url: 'https://bgmobiledev.com/mindful-minutes'
+            url: /mindful-minutes
             size: medium
             variant: text
             color: primary
@@ -47,7 +47,7 @@ sections:
         actions:
           - type: Button
             label: Learn more
-            url: 'https://bgmobiledev.com/jet-lag-manager'
+            url: /jet-lag-manager
             size: medium
             variant: text
             color: primary
@@ -64,7 +64,7 @@ sections:
         actions:
           - type: Button
             label: Learn more
-            url: 'https://bgmobiledev.com/rightfood'
+            url: rightfood
             size: medium
             variant: text
             color: primary
