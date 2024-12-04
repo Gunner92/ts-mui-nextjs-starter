@@ -4,7 +4,7 @@ title: Mindful Minutes
 sections:
   - type: HeroSection
     title: Processed Food Scan-Right Food
-    subtitle: Mindfulness Habits
+    subtitle: Scan Foods for Toxic Additives
     text: >+
       **Discover What’s Really in Your Food!**
 
