@@ -20,7 +20,7 @@ sections:
           just a few minutes each day.
         actions:
           - type: Button
-            label: Download Now
+            label: Load More
             url: >-
               https://apps.apple.com/tr/app/mindful-minutes-mindfulness/id6737522844
       - type: Card
