@@ -45,7 +45,7 @@ sections:
           just a few minutes each day.
         actions:
           - type: Button
-            label: Read the Docs
+            label: Download Now
             url: 'https://docs.netlify.com/visual-editor/overview/'
       - type: Card
         title: Second Card Title
