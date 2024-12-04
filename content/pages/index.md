@@ -31,10 +31,16 @@ sections:
             color: primary
       - type: Card
         title: Jet Lag Manager
-        text: >-
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ante
-          lorem, tincidunt ac leo efficitur, feugiat tempor odio. Maecenas
-          pharetra ipsum dolor, et iaculis elit ornare ac.
+        text: >
+          **Leave jet lag behind and enjoy your travels!**
+
+
+          Our app provides personalized tips to help you quickly adjust to new
+          time zones.By optimizing your melatonin usage, sunlight exposure, and
+          caffeine intake, you can minimize the effects of jet lag.Sync your
+          body clock properly and start every trip feeling energized.Whether
+          you're on a short or long-haul flight, you'll have all the tips you
+          need for a smooth and comfortable journey!
         image:
           type: Image
           url: >-
