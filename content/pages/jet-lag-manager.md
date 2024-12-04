@@ -3,7 +3,7 @@ type: Page
 title: Mindful Minutes
 sections:
   - type: HeroSection
-    title: Mindful Minutes - Mindfulness
+    title: Jet Lag Manager
     subtitle: Mindfulness Habits
     text: >+
       **Mindfulness Minute: Small Steps, Big Changes**
