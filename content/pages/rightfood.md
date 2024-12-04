@@ -89,5 +89,5 @@ sections:
     image:
       type: Image
       url: /images/Screenshot 2024-12-04 at 14.40.24.png
-      altText: Image alt text
+      altText: Right Food
 ---
