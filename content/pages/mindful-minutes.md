@@ -43,7 +43,7 @@ sections:
 
     actions:
       - type: Button
-        label: Get Started
+        label: Download Now
         url: /
         size: large
         variant: contained
