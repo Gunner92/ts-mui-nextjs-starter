@@ -25,7 +25,7 @@ sections:
         actions:
           - type: Button
             label: Learn more
-            url: /
+            url: /mindful-minutes
             size: medium
             variant: text
             color: primary
