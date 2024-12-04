@@ -28,7 +28,7 @@ sections:
       altText: Hero section image
   - type: CardsSection
     title: Applications
-    subtitle: Section subtitle here
+    subtitle: Section subtitle her
     items:
       - type: Card
         title: First Card Title
