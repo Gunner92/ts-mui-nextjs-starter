@@ -4,7 +4,7 @@ title: Jet Lag Manager
 sections:
   - type: HeroSection
     title: Jet Lag Manager
-    subtitle: Mindfulness Habits
+    subtitle: Timeshifter for jetlag
     text: >
       **Leave jet lag behind and enjoy your travels!**
 
