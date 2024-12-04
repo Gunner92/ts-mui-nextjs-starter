@@ -23,6 +23,7 @@ sections:
             label: Load More
             url: /mindful-minutes
             variant: contained
+            size: large
       - type: Card
         title: Second Card Title
         image:
