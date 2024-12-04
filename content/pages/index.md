@@ -74,7 +74,10 @@ sections:
           just a few minutes each day.
         image:
           type: Image
-          url: /images/Screenshot 2024-12-04 at 14.44.13.png
+          url: >-
+            /images/DALL·E 2024-11-08 17.16.26 - A clean, minimalist 2D flat
+            logo for a mindfulness app, in a calming lavender color. The design
+            should include a peaceful symbol like a circular wave  1.jpg
           altText: First item image
         actions:
           - type: Button
