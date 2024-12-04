@@ -1,8 +1,8 @@
 {
     "type": "Config",
-    "favicon": "/images/favicon.svg",
+    "favicon": "/images/DALL·E 2024-12-04 15.01.05 - A high-quality app icon featuring a shield split into two halves, with one side in vibrant blue and the other in rich green. In the center of the shie.webp",
     "header": {
-        "title": "TypeScript + MUI Starter",
+        "title": "Burak Guner",
         "navLinks": [
             {
                 "type": "Link",
@@ -12,15 +12,10 @@
             },
             {
                 "type": "Link",
-                "label": "About",
-                "url": "/about",
-                "underline": "hover"
-            },
-            {
-                "type": "Link",
-                "label": "Documentation",
-                "url": "https://docs.netlify.com/visual-editor/overview/",
-                "underline": "hover"
+                "label": "Linkedin",
+                "url": "https://www.linkedin.com/in/burak-guner-ios",
+                "underline": "always",
+                "color": "primary"
             }
         ]
     },
@@ -35,15 +30,10 @@
             },
             {
                 "type": "Link",
-                "label": "About",
-                "underline": "hover",
-                "url": "/about"
-            },
-            {
-                "type": "Link",
-                "label": "Documentation",
-                "underline": "hover",
-                "url": "https://docs.netlify.com/visual-editor/overview/"
+                "label": "Linkedin",
+                "url": "https://www.linkedin.com/in/burak-guner-ios",
+                "underline": "always",
+                "color": "primary"
             }
         ]
     }
