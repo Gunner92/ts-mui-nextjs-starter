@@ -64,7 +64,7 @@ sections:
     subtitle: The section subtitle
     items:
       - type: Card
-        title: First Item Title
+        title: Mindful Minutes - Mindfullness
         text: >
           Mindfulness Minute: Small Steps, Big Changes
 
