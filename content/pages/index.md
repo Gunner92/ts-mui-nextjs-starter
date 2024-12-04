@@ -54,7 +54,7 @@ sections:
       - type: Card
         title: Toxic App Scan - Right Food
         text: |+
-          # Toxic App Scan - Right Food
+          Toxic App Scan - Right Food
 
         image:
           type: Image
