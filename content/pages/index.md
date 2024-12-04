@@ -55,7 +55,7 @@ sections:
         actions:
           - type: Button
             label: Load More
-            url: /
+            url: /rightfood
             size: large
             variant: contained
             color: secondary
