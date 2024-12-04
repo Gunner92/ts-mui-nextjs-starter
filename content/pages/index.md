@@ -25,7 +25,7 @@ sections:
         actions:
           - type: Button
             label: Learn more
-            url: /mindful-minutes
+            url: 'https://bgmobiledev.com/mindful-minutes'
             size: medium
             variant: text
             color: primary
