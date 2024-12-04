@@ -61,7 +61,7 @@ sections:
             color: secondary
   - type: CardsSection
     title: iOS Mobile Applications
-    subtitle: The section subtitle
+    subtitle: ''
     items:
       - type: Card
         title: Mindful Minutes - Mindfullness
