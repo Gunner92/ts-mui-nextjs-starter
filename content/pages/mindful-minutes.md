@@ -46,7 +46,7 @@ sections:
         label: Download Now
         url: 'https://apps.apple.com/tr/app/mindful-minutes-mindfulness/id6737522844'
         size: large
-        variant: outlined
+        variant: contained
         color: primary
       - type: Button
         label: Learn more
