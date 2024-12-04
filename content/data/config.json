@@ -30,7 +30,7 @@
             },
             {
                 "type": "Link",
-                "label": "About Me",
+                "label": "Linkedin",
                 "url": "www.linkedin.com/in/burak-guner-ios",
                 "underline": "always",
                 "color": "primary"
