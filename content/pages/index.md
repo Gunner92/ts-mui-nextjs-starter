@@ -53,10 +53,9 @@ sections:
             color: primary
       - type: Card
         title: Toxic App Scan - Right Food
-        text: >-
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ante
-          lorem, tincidunt ac leo efficitur, feugiat tempor odio. Maecenas
-          pharetra ipsum dolor, et iaculis elit ornare ac.
+        text: |+
+          # Toxic App Scan - Right Food
+
         image:
           type: Image
           url: /images/ts.svg
