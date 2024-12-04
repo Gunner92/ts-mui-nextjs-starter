@@ -45,7 +45,7 @@ sections:
         actions:
           - type: Button
             label: Learn more
-            url: /
+            url: /jet
             size: medium
             variant: text
             color: primary
