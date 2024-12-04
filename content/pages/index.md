@@ -22,6 +22,7 @@ sections:
           - type: Button
             label: Load More
             url: /mindful-minutes
+            variant: contained
       - type: Card
         title: Second Card Title
         image:
