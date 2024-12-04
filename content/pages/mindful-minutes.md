@@ -47,7 +47,7 @@ sections:
         url: 'https://apps.apple.com/tr/app/mindful-minutes-mindfulness/id6737522844'
         size: large
         variant: contained
-        color: primary
+        color: inherit
       - type: Button
         label: Learn more
         url: /
