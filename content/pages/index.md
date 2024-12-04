@@ -61,7 +61,7 @@ sections:
         actions:
           - type: Button
             label: Learn more
-            url: /
+            url: /rightfood
             size: medium
             variant: text
             color: primary
