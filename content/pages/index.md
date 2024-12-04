@@ -74,7 +74,7 @@ sections:
           just a few minutes each day.
         image:
           type: Image
-          url: /images/nextjs.svg
+          url: /images/Screenshot 2024-12-04 at 14.44.13.png
           altText: First item image
         actions:
           - type: Button
