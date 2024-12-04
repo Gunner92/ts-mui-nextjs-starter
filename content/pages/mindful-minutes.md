@@ -4,7 +4,7 @@ title: Mindful Minutes
 sections:
   - type: HeroSection
     title: Mindful Minutes - Mindfulness
-    subtitle: ''
+    subtitle: Mindfulness Habits
     text: >-
       Add more sections by hovering above or below this one and clicking '+ Add
       Section', or using the sidebar.
