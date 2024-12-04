@@ -41,6 +41,7 @@ sections:
             url: /jet-lag-manager
             color: secondary
             variant: contained
+            size: large
       - type: Card
         title: Third Card Title
         image:
