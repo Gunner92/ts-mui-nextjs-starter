@@ -50,6 +50,6 @@ sections:
         color: primary
     image:
       type: Image
-      url: 'https://assets.stackbit.com/components/images/default/default-image.png'
+      url: /images/Screenshot 2024-12-04 at 13.10.20.png
       altText: Image alt text
 ---
