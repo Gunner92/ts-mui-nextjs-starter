@@ -3,7 +3,7 @@ type: Page
 title: Mindful Minutes
 sections:
   - type: HeroSection
-    title: Mindful Minutes - Mindfulness
+    title: Processed Food Scan-Right Food
     subtitle: Mindfulness Habits
     text: >+
       **Discover What’s Really in Your Food!**
