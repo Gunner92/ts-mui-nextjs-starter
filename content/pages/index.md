@@ -53,9 +53,7 @@ sections:
             color: primary
       - type: Card
         title: Toxic App Scan - Right Food
-        text: |+
-          Toxic App Scan - Right Food
-
+        text: "**Toxic App Scan - Right Food\n\n**Discover the hidden truth in your food with Right Food! Whether you're on a clean eating journey, looking for a reliable calorie counter, or want a gluten-free scanner, Right Food has you covered.\_\n"
         image:
           type: Image
           url: /images/ts.svg
