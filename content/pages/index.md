@@ -36,8 +36,7 @@ sections:
 
 
           Our app provides personalized tips to help you quickly adjust to new
-          time zones.By optimizing your melatonin usage, sunlight exposure, and
-          caffeine intake, you can minimize the effects of jet lag.
+          time zones.you can minimize the effects of jet lag.
         image:
           type: Image
           url: >-
