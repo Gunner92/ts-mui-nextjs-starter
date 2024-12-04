@@ -38,7 +38,7 @@ sections:
         actions:
           - type: Button
             label: Load More
-            url: /
+            url: /jet-lag-manager
       - type: Card
         title: Third Card Title
         image:
