@@ -82,7 +82,8 @@ sections:
     actions:
       - type: Button
         label: Download Now
-        url: 'https://apps.apple.com/tr/app/mindful-minutes-mindfulness/id6737522844'
+        url: >-
+          https://apps.apple.com/us/app/processed-food-scan-right-food/id6478465891
         size: large
         variant: contained
         color: primary
