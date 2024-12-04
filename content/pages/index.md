@@ -45,7 +45,7 @@ sections:
         actions:
           - type: Button
             label: Learn more
-            url: /jet
+            url: /jet-lag-manager
             size: medium
             variant: text
             color: primary
