@@ -64,7 +64,7 @@ sections:
         actions:
           - type: Button
             label: Learn more
-            url: 'https://bgmobiledev.com/rightfood'
+            url: rightfood
             size: medium
             variant: text
             color: primary
