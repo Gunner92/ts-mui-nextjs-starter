@@ -1,6 +1,6 @@
 ---
 type: Page
-title: Mindful Minutes
+title: Right Food
 sections:
   - type: HeroSection
     title: Processed Food Scan-Right Food
