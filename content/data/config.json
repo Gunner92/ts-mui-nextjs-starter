@@ -20,7 +20,7 @@
             {
                 "type": "Link",
                 "label": "burak@bgmobiledev.com",
-                "url": "",
+                "url": "mailto:burak@bgmobiledev.com",
                 "underline": "always",
                 "color": "primary"
             }
