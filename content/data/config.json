@@ -16,6 +16,13 @@
                 "url": "https://www.linkedin.com/in/burak-guner-ios",
                 "underline": "always",
                 "color": "primary"
+            },
+            {
+                "type": "Link",
+                "label": "burak@bgmobiledev.com",
+                "url": "burak@bgmobiledev.com",
+                "underline": "always",
+                "color": "primary"
             }
         ]
     },
