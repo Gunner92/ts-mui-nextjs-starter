@@ -68,4 +68,21 @@ sections:
             size: medium
             variant: text
             color: primary
+      - type: Card
+        title: Majority Goals
+        text: "**Reach Your Goals – One Step at a Time with Majority Goals!**\n\n**Majority Goals**\_is your personal habit-building companion designed to make self-improvement simple and achievable. Whether you’re focusing on\_**mental wellness**, boosting\_**productivity**, or improving your\_**fitness routine**, Majority Goals offers bite-sized tasks and daily plans that fit seamlessly into your lifestyle.\n"
+        image:
+          type: Image
+          url: >-
+            /images/DALL·E 2024-12-18 12.06.42 - A modern and minimalist icon
+            design for a mobile app named 'Majority Goals'. The icon features a
+            stylized blue target with a golden arrow hitting the .webp
+          altText: Item image
+        actions:
+          - type: Button
+            label: Learn More
+            url: majoritygoals
+            size: medium
+            variant: text
+            color: primary
 ---
