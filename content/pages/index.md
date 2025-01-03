@@ -81,7 +81,7 @@ sections:
         actions:
           - type: Button
             label: Learn More
-            url: /
+            url: majoritygoals
             size: medium
             variant: text
             color: primary
