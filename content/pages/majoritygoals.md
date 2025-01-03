@@ -15,6 +15,6 @@ sections:
         color: primary
     image:
       type: Image
-      url: /images/Screenshot 2024-12-04 at 14.37.27.png
+      url: /images/Group 19589.jpg
       altText: Image alt text
 ---
