@@ -1,6 +1,6 @@
 ---
 type: Page
-title: Jet Lag Manager
+title: Majority Goals
 sections:
   - type: HeroSection
     title: Jet Lag Manager
