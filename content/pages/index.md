@@ -77,7 +77,9 @@ sections:
         image:
           type: Image
           url: >-
-            https://assets.stackbit.com/components/images/default/default-image.png
+            /images/DALL·E 2024-12-18 12.06.42 - A modern and minimalist icon
+            design for a mobile app named 'Majority Goals'. The icon features a
+            stylized blue target with a golden arrow hitting the .webp
           altText: Item image
         actions:
           - type: Button
