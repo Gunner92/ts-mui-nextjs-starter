@@ -70,10 +70,7 @@ sections:
             color: primary
       - type: Card
         title: Majority Goals
-        text: >-
-          Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-          accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae.
-          explicabo.
+        text: "**Reach Your Goals – One Step at a Time with Majority Goals!**\n\n**Majority Goals**\_is your personal habit-building companion designed to make self-improvement simple and achievable. Whether you’re focusing on\_**mental wellness**, boosting\_**productivity**, or improving your\_**fitness routine**, Majority Goals offers bite-sized tasks and daily plans that fit seamlessly into your lifestyle.\n"
         image:
           type: Image
           url: >-
