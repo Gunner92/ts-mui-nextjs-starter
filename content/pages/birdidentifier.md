@@ -1,6 +1,6 @@
 ---
 type: Page
-title: Mindful Minutes
+title: Bird Identifier
 sections:
   - type: HeroSection
     title: Mindful Minutes - Mindfulness
