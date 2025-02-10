@@ -3,7 +3,7 @@ type: Page
 title: Bird Identifier
 sections:
   - type: HeroSection
-    title: Mindful Minutes - Mindfulness
+    title: Bird Identifier
     subtitle: Mindfulness Habits
     text: >+
       **Mindfulness Minute: Small Steps, Big Changes**
