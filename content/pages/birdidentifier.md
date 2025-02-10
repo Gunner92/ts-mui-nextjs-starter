@@ -15,6 +15,6 @@ sections:
         color: primary
     image:
       type: Image
-      url: /images/Screenshot 2024-12-04 at 14.38.07.png
+      url: /images/4.jpg
       altText: Image alt text
 ---
