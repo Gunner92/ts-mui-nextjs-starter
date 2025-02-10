@@ -85,4 +85,80 @@ sections:
             size: medium
             variant: text
             color: primary
+      - type: Card
+        title: 'Bird Identifier : AI Scanner'
+        text: >
+          **Bird Identifier – AI-Powered Bird Recognition**
+
+
+          Discover the world of birds with AI. Simply capture a photo or record
+          a bird’s song, and let advanced AI instantly identify the species.
+          Whether you're a beginner birdwatcher or an expert ornithologist, Bird
+          Identifier makes bird identification effortless and fun.
+        image:
+          type: Image
+          url: /images/4.jpg
+          altText: Item image
+        actions:
+          - type: Button
+            label: Learn More
+            url: birdidentifier
+            size: medium
+            variant: text
+            color: primary
+  - type: CardsSection
+    title: Cards Section Title
+    subtitle: The section subtitle
+    items:
+      - type: Card
+        title: First Item Title
+        text: >-
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ante
+          lorem, tincidunt ac leo efficitur, feugiat tempor odio. Maecenas
+          pharetra ipsum dolor, et iaculis elit ornare ac.
+        image:
+          type: Image
+          url: /images/nextjs.svg
+          altText: First item image
+        actions:
+          - type: Button
+            label: Learn more
+            url: /
+            size: medium
+            variant: text
+            color: primary
+      - type: Card
+        title: Second Item Title
+        text: >-
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ante
+          lorem, tincidunt ac leo efficitur, feugiat tempor odio. Maecenas
+          pharetra ipsum dolor, et iaculis elit ornare ac.
+        image:
+          type: Image
+          url: /images/mui-5.svg
+          altText: Second item image
+        actions:
+          - type: Button
+            label: Learn more
+            url: /
+            size: medium
+            variant: text
+            color: primary
+      - type: Card
+        title: Third Item Title
+        text: >-
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ante
+          lorem, tincidunt ac leo efficitur, feugiat tempor odio. Maecenas
+          pharetra ipsum dolor, et iaculis elit ornare ac.
+        image:
+          type: Image
+          url: /images/ts.svg
+          altText: Third item image
+        actions:
+          - type: Button
+            label: Learn more
+            url: /
+            size: medium
+            variant: text
+            color: primary
 ---
