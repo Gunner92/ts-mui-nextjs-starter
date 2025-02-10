@@ -4,7 +4,7 @@ title: Bird Identifier
 sections:
   - type: HeroSection
     title: Bird Identifier
-    subtitle: Mindfulness Habits
+    subtitle: AI Powered
     text: >+
       **Mindfulness Minute: Small Steps, Big Changes**
 
