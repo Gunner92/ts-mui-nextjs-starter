@@ -102,7 +102,7 @@ sections:
         actions:
           - type: Button
             label: Learn More
-            url: /
+            url: birdidentifier
             size: medium
             variant: text
             color: primary
