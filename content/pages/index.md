@@ -87,10 +87,14 @@ sections:
             color: primary
       - type: Card
         title: 'Bird Identifier : AI Scanner'
-        text: >-
-          Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-          accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae.
-          explicabo.
+        text: >
+          **Bird Identifier – AI-Powered Bird Recognition**
+
+
+          Discover the world of birds with AI. Simply capture a photo or record
+          a bird’s song, and let advanced AI instantly identify the species.
+          Whether you're a beginner birdwatcher or an expert ornithologist, Bird
+          Identifier makes bird identification effortless and fun.
         image:
           type: Image
           url: /images/4.jpg
