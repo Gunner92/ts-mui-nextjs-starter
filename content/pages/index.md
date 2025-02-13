@@ -106,4 +106,25 @@ sections:
             size: medium
             variant: text
             color: primary
+      - type: Card
+        title: Animal Identifier
+        text: >
+          **Animal Identifier – AI-Powered Wildlife Recognition**
+
+          Explore the wonders of wildlife with AI. Simply capture a photo or
+          record an animal’s sound, and let advanced AI instantly identify the
+          species. Whether you're a nature enthusiast or a wildlife researcher,
+          Animal Identifier makes species identification effortless and fun.
+        image:
+          type: Image
+          url: >-
+            /images/DALL_E_2025-02-12_14.07.24_-_A_realistic_digital_painting_of_a_group_of_unknown_but_cute_and_friendly-looking_animals__set_against_a_plain_white_background._The_animals_should_hav_1-removebg-preview.png
+          altText: Item image
+        actions:
+          - type: Button
+            label: Learn More
+            url: animal-identifier
+            size: medium
+            variant: text
+            color: primary
 ---
