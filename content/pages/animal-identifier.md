@@ -15,6 +15,7 @@ sections:
         color: primary
     image:
       type: Image
-      url: /images/4.jpg
+      url: >-
+        /images/DALL_E_2025-02-12_14.07.24_-_A_realistic_digital_painting_of_a_group_of_unknown_but_cute_and_friendly-looking_animals__set_against_a_plain_white_background._The_animals_should_hav_1-removebg-preview.png
       altText: Image alt text
 ---
