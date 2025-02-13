@@ -123,7 +123,7 @@ sections:
         actions:
           - type: Button
             label: Learn More
-            url: animal-identifier
+            url: ''
             size: medium
             variant: text
             color: primary
