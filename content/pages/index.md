@@ -108,10 +108,13 @@ sections:
             color: primary
       - type: Card
         title: Animal Identifier
-        text: >-
-          Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-          accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae.
-          explicabo.
+        text: >
+          **Animal Identifier – AI-Powered Wildlife Recognition**
+
+          Explore the wonders of wildlife with AI. Simply capture a photo or
+          record an animal’s sound, and let advanced AI instantly identify the
+          species. Whether you're a nature enthusiast or a wildlife researcher,
+          Animal Identifier makes species identification effortless and fun.
         image:
           type: Image
           url: >-
