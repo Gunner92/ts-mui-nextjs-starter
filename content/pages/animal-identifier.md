@@ -1,6 +1,6 @@
 ---
 type: Page
-title: Bird Identifier
+title: Animal Identifier
 sections:
   - type: HeroSection
     title: Bird Identifier
