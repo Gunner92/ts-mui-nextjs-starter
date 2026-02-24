@@ -1,46 +1,52 @@
 {
     "type": "Config",
-    "favicon": "/images/DALL·E 2024-12-04 15.01.05 - A high-quality app icon featuring a shield split into two halves, with one side in vibrant blue and the other in rich green. In the center of the shie.webp",
+    "favicon": "/images/favicon.svg",
     "header": {
-        "title": "Burak Guner",
+        "title": "BG Mobile Dev",
         "navLinks": [
             {
                 "type": "Link",
                 "label": "Home",
                 "url": "/",
-                "underline": "hover"
+                "underline": "none"
             },
             {
                 "type": "Link",
-                "label": "Linkedin",
+                "label": "Privacy Policy",
+                "url": "/privacy-policy",
+                "underline": "none"
+            },
+            {
+                "type": "Link",
+                "label": "LinkedIn",
                 "url": "https://www.linkedin.com/in/burak-guner-ios",
-                "underline": "always",
+                "underline": "none",
+                "color": "primary"
+            },
+            {
+                "type": "Link",
+                "label": "Contact",
+                "url": "mailto:burak.guner@outlook.com",
+                "underline": "none",
+                "color": "primary"
+            }
+        ]
+    },
+    "footer": {
+        "copyrightText": "",
+        "navLinks": [
+            {
+                "type": "Link",
+                "label": "LinkedIn",
+                "url": "https://www.linkedin.com/in/burak-guner-ios",
+                "underline": "hover",
                 "color": "primary"
             },
             {
                 "type": "Link",
                 "label": "burak.guner@outlook.com",
                 "url": "mailto:burak.guner@outlook.com",
-                "underline": "always",
-                "color": "primary"
-            }
-        ]
-    },
-    "footer": {
-        "copyrightText": "Powered by [Netlify](https://www.netlify.com/).",
-        "navLinks": [
-            {
-                "type": "Link",
-                "label": "Home",
-                "underline": "hover",
-                "url": "/"
-            },
-            {
-                "type": "Link",
-                "label": "Linkedin",
-                "url": "https://www.linkedin.com/in/burak-guner-ios",
-                "underline": "always",
-                "color": "primary"
+                "underline": "hover"
             }
         ]
     }

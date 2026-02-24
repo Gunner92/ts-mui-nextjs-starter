@@ -1,7 +1,7 @@
 export type Document = Config | Page;
 export type DocumentTypeNames = 'Config' | 'Page';
 
-export type Section = CardsSection | HeroSection;
+export type Section = CardsSection | HeroSection | AppShowcaseSection | PrivacySection;
 
 /** Document types */
 export type Config = {
@@ -45,6 +45,30 @@ export type CardsSection = {
     title?: string;
     subtitle?: string;
     items?: Card[];
+};
+
+export type AppShowcaseSection = {
+    type: 'AppShowcaseSection';
+    title?: string;
+    subtitle?: string;
+    items?: AppCard[];
+};
+
+export type AppCard = {
+    type: 'AppCard';
+    title?: string;
+    description?: string;
+    icon?: string;
+    category?: string;
+    appStoreUrl?: string;
+    pageUrl?: string;
+};
+
+export type PrivacySection = {
+    type: 'PrivacySection';
+    title?: string;
+    content?: string;
+    lastUpdated?: string;
 };
 
 export type Footer = {

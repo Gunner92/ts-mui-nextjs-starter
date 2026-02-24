@@ -18,12 +18,30 @@ export const CardsSection: React.FC<Props> = (props) => {
     return (
         <MuiBox sx={{ py: { xs: 6, sm: 10 } }} data-sb-field-path={fieldPath}>
             {title && (
-                <MuiTypography component="h2" variant="h2" align="center" color="text.primary" data-sb-field-path=".title">
+                <MuiTypography
+                    component="h2"
+                    variant="h3"
+                    align="center"
+                    sx={{
+                        background: 'linear-gradient(135deg, #ffffff 0%, #a0a0b8 100%)',
+                        WebkitBackgroundClip: 'text',
+                        WebkitTextFillColor: 'transparent',
+                        fontWeight: 700
+                    }}
+                    data-sb-field-path=".title"
+                >
                     {title}
                 </MuiTypography>
             )}
             {subtitle && (
-                <MuiTypography component="p" variant="h5" align="center" color="text.primary" sx={{ ...(!!title && { mt: 1 }) }} data-sb-field-path=".subtitle">
+                <MuiTypography
+                    component="p"
+                    variant="h6"
+                    align="center"
+                    color="text.secondary"
+                    sx={{ ...(!!title && { mt: 1 }) }}
+                    data-sb-field-path=".subtitle"
+                >
                     {subtitle}
                 </MuiTypography>
             )}
@@ -42,26 +60,48 @@ const CardsSectionItem: React.FC<types.Card & types.StackbitFieldPath & { titleT
     const { title, text, image, actions = [], titleTag = 'h3', 'data-sb-field-path': fieldPath } = props;
     return (
         <MuiGrid item xs={12} sm={6} md={4}>
-            <MuiCard sx={{ height: '100%' }} data-sb-field-path={fieldPath}>
+            <MuiCard sx={{ height: '100%', display: 'flex', flexDirection: 'column' }} data-sb-field-path={fieldPath}>
                 {image?.url && (
-                    <MuiCardMedia component="img" image={image.url} alt={image.altText} data-sb-field-path=".image .image.url#@src .image.altText#@alt" />
+                    <MuiCardMedia
+                        component="img"
+                        image={image.url}
+                        alt={image.altText}
+                        sx={{
+                            height: 200,
+                            objectFit: 'cover'
+                        }}
+                        data-sb-field-path=".image .image.url#@src .image.altText#@alt"
+                    />
                 )}
                 {(title || text) && (
-                    <MuiCardContent>
+                    <MuiCardContent sx={{ flexGrow: 1 }}>
                         {title && (
-                            <MuiTypography component={titleTag} variant="h5" color="text.primary" data-sb-field-path=".title">
+                            <MuiTypography
+                                component={titleTag}
+                                variant="h5"
+                                color="text.primary"
+                                sx={{ fontWeight: 600 }}
+                                data-sb-field-path=".title"
+                            >
                                 {title}
                             </MuiTypography>
                         )}
                         {text && (
-                            <MuiTypography component="div" color="text.secondary">
+                            <MuiTypography
+                                component="div"
+                                color="text.secondary"
+                                sx={{
+                                    mt: 1,
+                                    '& strong': { color: '#ffffff' }
+                                }}
+                            >
                                 <Markdown text={text} data-sb-field-path=".text" />
                             </MuiTypography>
                         )}
                     </MuiCardContent>
                 )}
                 {actions.length > 0 && (
-                    <MuiCardActions data-sb-field-path=".actions">
+                    <MuiCardActions sx={{ px: 2, pb: 2 }} data-sb-field-path=".actions">
                         {actions.map((action, index) => (
                             <Button key={index} {...action} data-sb-field-path={`.${index}`} />
                         ))}
