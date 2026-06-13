@@ -1,46 +1,127 @@
 ---
 type: Page
-title: Fossil Identifier
+title: Fossil Identifier - Dino Scan
 sections:
-  - type: HeroSection
-    title: Fossil Identifier
-    subtitle: AI-Powered Paleontology
-    text: >
-      **Fossil Identifier** brings the world of paleontology to your
-      fingertips with advanced AI-powered fossil recognition.
+- type: HeroSection
+  title: Fossil Identifier - Dino Scan
+  subtitle: Explore paleontology with AI fossil identification and detailed species facts.
+  text: 'Turn your phone into a paleontologist''s toolkit. Snap a photo of any fossil and get instant identification with detailed information about its age, species, and origin.
 
 
-      ### Key Features:
+    WHAT CAN YOU IDENTIFY?
 
 
-      - **AI Recognition** - Identify fossils instantly from photos
+    - Dinosaur fossils and bone fragments
+
+    - Ammonites and ancient shells
+
+    - Trilobites and marine fossils
+
+    - Plant fossils and petrified wood
+
+    - Trace fossils and footprints
+
+    - Rocks and mineral specimens
 
 
-      - **Species Information** - Learn about the species, era, and
-      geological context
+    POWERFUL AI TECHNOLOGY
 
 
-      - **Educational Content** - Discover fascinating facts about
-      prehistoric life
+    Our advanced machine learning model is trained on thousands of fossil specimens from museums and research institutions worldwide. Get accurate identifications in seconds, not hours of research.
 
 
-      - **Field Guide** - Use as a companion tool during fossil hunting
-      expeditions
+    LEARN PREHISTORIC HISTORY
 
 
-      - **Collection Log** - Track and catalog your fossil discoveries
+    Each identification includes:
 
 
-      Explore millions of years of Earth's history with Fossil Identifier.
-    actions:
-      - type: Button
-        label: Download Now
-        url: https://apps.apple.com/app/id6741044139
-        size: large
-        variant: contained
-        color: primary
-    image:
-      type: Image
-      url: /images/fossil-screenshot.png
-      altText: Fossil Identifier App Screenshot
+    - Scientific name and classification
+
+    - Geological time period (when it lived)
+
+    - Geographic distribution (where it was found)
+
+    - Interesting facts about the species
+
+    - Similar fossils to look for
+
+
+    BUILD YOUR COLLECTION
+
+
+    - Save identified fossils to your personal collection
+
+    - Track your discoveries with location tags
+
+    - Share finds with fellow collectors
+
+    - Export collection data for research
+
+
+    PERFECT FOR
+
+
+    - Fossil hunters and collectors
+
+    - Students studying paleontology or geology
+
+    - Museum visitors wanting to learn more
+
+    - Parents exploring nature with kids
+
+    - Teachers creating interactive lessons
+
+    - Anyone curious about prehistoric life
+
+
+    WHY CHOOSE FOSSIL IDENTIFIER?
+
+
+    1. Instant Results - No waiting, no guessing
+
+    2. Offline Mode - Identify fossils anywhere
+
+    3. Expert Accuracy - Trained on museum collections
+
+    4. Educational Content - Learn while you discover
+
+    5. Regular Updates - New species added monthly
+
+
+    Start your prehistoric adventure today. Every rock could be a window to ancient history!
+
+
+    ---
+
+
+    PREMIUM SUBSCRIPTION
+
+
+    Unlock unlimited identifications and advanced features with Premium:
+
+
+    - Weekly: $6.99/week (3-day free trial)
+
+    - Yearly: $24.99/year
+
+
+    Payment will be charged to your Apple ID account at confirmation of purchase. Subscription automatically renews unless canceled at least 24 hours before the end of the current period. Your account will be charged for renewal within 24 hours prior to the end of the current period. You can manage and cancel your subscriptions by going to your account settings in the App Store after purchase.
+
+
+    Terms of Use: [https://www.apple.com/legal/internet-services/itunes/dev/stdeula/](https://www.apple.com/legal/internet-services/itunes/dev/stdeula/)
+
+
+    Privacy Policy: [https://rightfoods9.wordpress.com/2026/02/06/privacy-policy-for-fossil-identifier/](https://rightfoods9.wordpress.com/2026/02/06/privacy-policy-for-fossil-identifier/)'
+  actions:
+  - type: Button
+    label: Download on the App Store
+    url: https://apps.apple.com/us/app/fossil-identifier-dino-scan/id6758826310?uo=4
+    size: large
+    variant: contained
+    color: primary
+  image:
+    type: Image
+    url: /images/icons/fossil-identifier.png
+    altText: Fossil Identifier - Dino Scan
 ---
