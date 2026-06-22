@@ -1,121 +1,194 @@
 import * as React from 'react';
+import NextLink from 'next/link';
 import type * as types from 'types';
-import { Link } from '../../atoms/Link';
+import { fonts } from '../../../utils/theme';
 
-import MuiAppBar from '@mui/material/AppBar';
 import MuiBox from '@mui/material/Box';
-import MuiToolbar from '@mui/material/Toolbar';
-import MuiTypography from '@mui/material/Typography';
+import MuiContainer from '@mui/material/Container';
 import MuiIconButton from '@mui/material/IconButton';
 import MuiDrawer from '@mui/material/Drawer';
-import MuiList from '@mui/material/List';
-import MuiListItem from '@mui/material/ListItem';
 import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
-import PhoneIphoneIcon from '@mui/icons-material/PhoneIphone';
+import NorthEastIcon from '@mui/icons-material/NorthEast';
 
 export type Props = types.Header & types.StackbitObjectId;
 
+const isMailto = (url = '') => url.startsWith('mailto:');
+const isExternal = (url = '') => url.startsWith('http');
+const extProps = (url = '') => (isExternal(url) ? { target: '_blank', rel: 'noopener noreferrer' } : {});
+const linkComponent = (url = '') => (isMailto(url) || isExternal(url) ? ('a' as const) : NextLink);
+
+// Animated hairline underline that draws from the left on hover.
+const navLinkSx = {
+    position: 'relative',
+    fontFamily: fonts.mono,
+    fontSize: '0.72rem',
+    letterSpacing: '0.14em',
+    textTransform: 'uppercase',
+    color: 'var(--ink-2)',
+    textDecoration: 'none',
+    transition: 'color .2s ease',
+    '&::after': {
+        content: '""',
+        position: 'absolute',
+        left: 0,
+        bottom: -5,
+        height: '1.5px',
+        width: '100%',
+        background: 'var(--accent)',
+        transform: 'scaleX(0)',
+        transformOrigin: 'left',
+        transition: 'transform .3s cubic-bezier(.2,.7,.2,1)'
+    },
+    '&:hover': { color: 'var(--ink)' },
+    '&:hover::after, &:focus-visible::after': { transform: 'scaleX(1)' }
+} as const;
+
+const Wordmark: React.FC = () => (
+    <MuiBox component={NextLink} href="/" sx={{ display: 'flex', alignItems: 'center', gap: 1.25, textDecoration: 'none', color: 'inherit' }}>
+        <MuiBox
+            aria-hidden
+            sx={{
+                width: 38,
+                height: 38,
+                flexShrink: 0,
+                display: 'grid',
+                placeItems: 'center',
+                bgcolor: 'var(--ink)',
+                color: 'var(--paper-2)',
+                borderRadius: '5px',
+                fontFamily: fonts.display,
+                fontStyle: 'italic',
+                fontWeight: 500,
+                fontSize: '1.18rem',
+                lineHeight: 1,
+                transition: 'background-color .3s ease, transform .4s cubic-bezier(.2,.7,.2,1)',
+                '.wm:hover &': { bgcolor: 'var(--accent)', transform: 'rotate(-4deg)' }
+            }}
+        >
+            bg
+        </MuiBox>
+        <MuiBox sx={{ display: 'flex', flexDirection: 'column', lineHeight: 1 }}>
+            <MuiBox component="span" sx={{ fontFamily: fonts.mono, fontWeight: 700, fontSize: '0.74rem', letterSpacing: '0.18em', color: 'var(--ink)' }}>
+                BG MOBILE DEV
+            </MuiBox>
+            <MuiBox component="span" sx={{ fontFamily: fonts.mono, fontSize: '0.56rem', letterSpacing: '0.34em', color: 'var(--ink-3)', mt: 0.4 }}>
+                iOS STUDIO
+            </MuiBox>
+        </MuiBox>
+    </MuiBox>
+);
+
 export const Header: React.FC<Props> = (props) => {
-    const { title, navLinks = [], 'data-sb-object-id': objectId } = props;
+    const { navLinks = [], 'data-sb-object-id': objectId } = props;
     const fieldPath = objectId ? `${objectId}:header` : null;
-    const [mobileOpen, setMobileOpen] = React.useState(false);
+    const [open, setOpen] = React.useState(false);
+
+    const cta = navLinks.find((l) => isMailto(l.url));
+    const textLinks = navLinks.filter((l) => l !== cta);
 
     return (
-        <>
-            <MuiAppBar
-                position="sticky"
-                elevation={0}
-                data-sb-field-path={fieldPath}
-                sx={{
-                    background: 'rgba(10, 10, 26, 0.85)',
-                    backdropFilter: 'blur(20px)',
-                    borderBottom: '1px solid rgba(108, 99, 255, 0.1)'
-                }}
-            >
-                <MuiToolbar disableGutters sx={{ px: { xs: 2, sm: 3 } }}>
-                    <MuiBox sx={{ display: 'flex', alignItems: 'center', flexGrow: 1 }}>
-                        <PhoneIphoneIcon sx={{ mr: 1, color: '#6C63FF' }} />
-                        {title && (
-                            <MuiTypography
-                                component="p"
-                                variant="h6"
-                                noWrap
-                                data-sb-field-path=".title"
+        <MuiBox
+            component="header"
+            data-sb-field-path={fieldPath}
+            sx={{
+                position: 'sticky',
+                top: 0,
+                zIndex: 1100,
+                bgcolor: 'rgba(244, 238, 226, 0.82)',
+                backdropFilter: 'saturate(140%) blur(12px)',
+                borderBottom: '1px solid var(--line)'
+            }}
+        >
+            <MuiContainer maxWidth="lg" disableGutters sx={{ px: { xs: 2.5, sm: 4, md: 5 } }}>
+                <MuiBox className="wm" sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: { xs: 66, md: 76 } }}>
+                    <Wordmark />
+
+                    <MuiBox component="nav" sx={{ display: { xs: 'none', md: 'flex' }, alignItems: 'center', gap: 4 }} data-sb-field-path=".navLinks">
+                        {textLinks.map((link, i) => (
+                            <MuiBox key={i} component={linkComponent(link.url)} href={link.url} {...extProps(link.url)} sx={navLinkSx}>
+                                {link.label}
+                            </MuiBox>
+                        ))}
+                        {cta && (
+                            <MuiBox
+                                component="a"
+                                href={cta.url}
                                 sx={{
-                                    fontWeight: 700,
-                                    background: 'linear-gradient(135deg, #6C63FF 0%, #00D9FF 100%)',
-                                    WebkitBackgroundClip: 'text',
-                                    WebkitTextFillColor: 'transparent'
+                                    display: 'inline-flex',
+                                    alignItems: 'center',
+                                    gap: 0.75,
+                                    fontFamily: fonts.mono,
+                                    fontSize: '0.72rem',
+                                    letterSpacing: '0.12em',
+                                    textTransform: 'uppercase',
+                                    textDecoration: 'none',
+                                    color: 'var(--paper-2)',
+                                    bgcolor: 'var(--ink)',
+                                    px: 2,
+                                    py: 1.1,
+                                    borderRadius: '3px',
+                                    transition: 'background-color .25s ease, transform .25s ease',
+                                    '&:hover': { bgcolor: 'var(--accent-deep)', transform: 'translateY(-1px)' }
                                 }}
                             >
-                                {title}
-                            </MuiTypography>
+                                {cta.label}
+                                <NorthEastIcon sx={{ fontSize: 14 }} />
+                            </MuiBox>
                         )}
                     </MuiBox>
 
-                    {/* Desktop nav */}
-                    {navLinks.length > 0 && (
-                        <MuiBox
-                            component="nav"
-                            sx={{ display: { xs: 'none', md: 'flex' }, alignItems: 'center', gap: 3 }}
-                            data-sb-field-path=".navLinks"
-                        >
-                            {navLinks.map((link, index) => (
-                                <Link
-                                    key={index}
-                                    {...link}
-                                    sx={{
-                                        color: '#a0a0b8',
-                                        transition: 'color 0.2s',
-                                        '&:hover': { color: '#ffffff' }
-                                    }}
-                                    data-sb-field-path={`.${index}`}
-                                />
-                            ))}
-                        </MuiBox>
-                    )}
-
-                    {/* Mobile hamburger */}
-                    <MuiIconButton
-                        sx={{ display: { md: 'none' }, color: '#a0a0b8' }}
-                        onClick={() => setMobileOpen(true)}
-                    >
+                    <MuiIconButton aria-label="Open menu" sx={{ display: { md: 'none' }, color: 'var(--ink)' }} onClick={() => setOpen(true)}>
                         <MenuIcon />
                     </MuiIconButton>
-                </MuiToolbar>
-            </MuiAppBar>
+                </MuiBox>
+            </MuiContainer>
 
-            {/* Mobile drawer */}
             <MuiDrawer
                 anchor="right"
-                open={mobileOpen}
-                onClose={() => setMobileOpen(false)}
-                PaperProps={{
-                    sx: {
-                        background: '#0a0a1a',
-                        width: 280,
-                        borderLeft: '1px solid rgba(108, 99, 255, 0.2)'
-                    }
-                }}
+                open={open}
+                onClose={() => setOpen(false)}
+                PaperProps={{ sx: { bgcolor: 'var(--paper)', width: 300, borderLeft: '1px solid var(--line-strong)', backgroundImage: 'none' } }}
             >
-                <MuiBox sx={{ p: 2, display: 'flex', justifyContent: 'flex-end' }}>
-                    <MuiIconButton onClick={() => setMobileOpen(false)} sx={{ color: '#a0a0b8' }}>
+                <MuiBox sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', p: 2.5, borderBottom: '1px solid var(--line)' }}>
+                    <MuiBox component="span" sx={{ fontFamily: fonts.mono, fontSize: '0.62rem', letterSpacing: '0.28em', color: 'var(--ink-3)' }}>
+                        MENU
+                    </MuiBox>
+                    <MuiIconButton aria-label="Close menu" onClick={() => setOpen(false)} sx={{ color: 'var(--ink)' }}>
                         <CloseIcon />
                     </MuiIconButton>
                 </MuiBox>
-                <MuiList>
-                    {navLinks.map((link, index) => (
-                        <MuiListItem key={index} sx={{ py: 1.5 }}>
-                            <Link
-                                {...link}
-                                sx={{ fontSize: '1.1rem' }}
-                                data-sb-field-path={`.navLinks.${index}`}
-                            />
-                        </MuiListItem>
+                <MuiBox sx={{ display: 'flex', flexDirection: 'column', p: 1 }}>
+                    {navLinks.map((link, i) => (
+                        <MuiBox
+                            key={i}
+                            component={linkComponent(link.url)}
+                            href={link.url}
+                            {...extProps(link.url)}
+                            onClick={() => setOpen(false)}
+                            sx={{
+                                display: 'flex',
+                                alignItems: 'baseline',
+                                gap: 1.5,
+                                px: 2,
+                                py: 2,
+                                textDecoration: 'none',
+                                color: 'var(--ink)',
+                                borderBottom: '1px solid var(--line)',
+                                fontFamily: fonts.display,
+                                fontSize: '1.5rem',
+                                transition: 'color .2s ease, padding-left .2s ease',
+                                '&:hover': { color: 'var(--accent)', pl: 3 }
+                            }}
+                        >
+                            <MuiBox component="span" sx={{ fontFamily: fonts.mono, fontSize: '0.66rem', color: 'var(--ink-3)' }}>
+                                {String(i + 1).padStart(2, '0')}
+                            </MuiBox>
+                            {link.label}
+                        </MuiBox>
                     ))}
-                </MuiList>
+                </MuiBox>
             </MuiDrawer>
-        </>
+        </MuiBox>
     );
 };

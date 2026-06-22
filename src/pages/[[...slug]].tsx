@@ -12,39 +12,61 @@ import MuiContainer from '@mui/material/Container';
 
 export type Props = { page: types.Page; siteConfig: types.Config };
 
+const SITE = 'https://bgmobiledev.com';
+const STUDIO_BLURB =
+    'BG Mobile Dev — an independent iOS studio. A working index of twenty-one apps for health, travel, photography, identification and everyday life, built in Swift & SwiftUI.';
+
+const truncate = (s: string, n = 158) => (s.length > n ? s.slice(0, n - 1).trimEnd() + '…' : s);
+
 const Page: React.FC<Props> = ({ page, siteConfig }) => {
+    const isHome = page.__url === '/';
+    // Each detail page already carries a unique hero subtitle — use it so every
+    // URL gets its own description/OG text instead of one shared studio blurb.
+    const heroSub = (page.sections ?? []).find((s): s is types.HeroSection => s.type === 'HeroSection')?.subtitle;
+    const description = isHome ? STUDIO_BLURB : truncate(heroSub || STUDIO_BLURB);
+    const title = isHome ? 'BG Mobile Dev — Independent iOS Studio' : `${page.title} · BG Mobile Dev`;
+    const canonical = `${SITE}${page.__url === '/' ? '' : page.__url}`;
+    const ogImage = `${SITE}/images/og-default.png`;
+
     return (
         <MuiBox
             sx={{
                 minHeight: '100vh',
-                background: 'linear-gradient(180deg, #0a0a1a 0%, #0d0d24 50%, #0a0a1a 100%)',
                 position: 'relative',
-                overflow: 'hidden',
-                '&::before': {
-                    content: '""',
-                    position: 'fixed',
-                    top: 0,
-                    left: 0,
-                    right: 0,
-                    bottom: 0,
-                    background: 'radial-gradient(ellipse at 20% 20%, rgba(108, 99, 255, 0.06) 0%, transparent 50%), radial-gradient(ellipse at 80% 80%, rgba(0, 217, 255, 0.04) 0%, transparent 50%)',
-                    pointerEvents: 'none',
-                    zIndex: 0
-                }
+                overflowX: 'clip',
+                backgroundColor: 'var(--paper)',
+                // Soft top vignette + a faint warm bloom — atmosphere, not glow.
+                backgroundImage:
+                    'radial-gradient(120% 60% at 50% -10%, rgba(210,69,30,0.05) 0%, transparent 55%),' +
+                    'radial-gradient(90% 50% at 100% 0%, rgba(33,27,22,0.035) 0%, transparent 60%)',
+                backgroundAttachment: 'fixed'
             }}
             data-sb-object-id={page.__id}
         >
-            <MuiContainer maxWidth="lg" disableGutters sx={{ position: 'relative', zIndex: 1, px: { xs: 2, sm: 3 } }}>
-                <Head>
-                    <title>{page.title} | BG Mobile Dev</title>
-                    <meta name="viewport" content="width=device-width, initial-scale=1" />
-                    <meta name="description" content="BG Mobile Dev - Innovative iOS applications crafted with care" />
-                    <link rel="preconnect" href="https://fonts.googleapis.com" />
-                    <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-                    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
-                    {siteConfig.favicon && <link rel="icon" href={siteConfig.favicon} />}
-                </Head>
-                {siteConfig.header && <Header {...siteConfig.header} data-sb-object-id={siteConfig.__id} />}
+            <Head>
+                <title>{title}</title>
+                <meta name="viewport" content="width=device-width, initial-scale=1" />
+                <meta name="description" content={description} />
+                <meta name="author" content="BG Mobile Dev" />
+                <link rel="canonical" href={canonical} />
+                <meta property="og:type" content="website" />
+                <meta property="og:site_name" content="BG Mobile Dev" />
+                <meta property="og:title" content={title} />
+                <meta property="og:description" content={description} />
+                <meta property="og:url" content={canonical} />
+                <meta property="og:image" content={ogImage} />
+                <meta property="og:image:width" content="1200" />
+                <meta property="og:image:height" content="630" />
+                <meta name="twitter:card" content="summary_large_image" />
+                <meta name="twitter:title" content={title} />
+                <meta name="twitter:description" content={description} />
+                <meta name="twitter:image" content={ogImage} />
+                {siteConfig.favicon && <link rel="icon" href={siteConfig.favicon} />}
+            </Head>
+
+            {siteConfig.header && <Header {...siteConfig.header} data-sb-object-id={siteConfig.__id} />}
+
+            <MuiContainer maxWidth="lg" disableGutters sx={{ position: 'relative', zIndex: 1, px: { xs: 2.5, sm: 4, md: 5 } }}>
                 {(page.sections ?? []).length > 0 && (
                     <MuiBox component="main" data-sb-field-path="sections">
                         {(page.sections ?? []).map((section, index) => (
@@ -52,8 +74,9 @@ const Page: React.FC<Props> = ({ page, siteConfig }) => {
                         ))}
                     </MuiBox>
                 )}
-                {siteConfig.footer && <Footer {...siteConfig.footer} data-sb-object-id={siteConfig.__id} />}
             </MuiContainer>
+
+            {siteConfig.footer && <Footer {...siteConfig.footer} data-sb-object-id={siteConfig.__id} />}
         </MuiBox>
     );
 };
