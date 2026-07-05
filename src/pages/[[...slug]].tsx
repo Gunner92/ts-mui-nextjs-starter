@@ -13,18 +13,18 @@ import MuiContainer from '@mui/material/Container';
 export type Props = { page: types.Page; siteConfig: types.Config };
 
 const SITE = 'https://bgmobiledev.com';
-const STUDIO_BLURB =
-    'BG Mobile Dev — an independent iOS studio. A working index of twenty-one apps for health, travel, photography, identification and everyday life, built in Swift & SwiftUI.';
+const SITE_BLURB =
+    'BG Mobile Dev — an independent iOS developer. A working index of twenty-one apps for health, travel, photography, identification and everyday life, built in Swift & SwiftUI.';
 
 const truncate = (s: string, n = 158) => (s.length > n ? s.slice(0, n - 1).trimEnd() + '…' : s);
 
 const Page: React.FC<Props> = ({ page, siteConfig }) => {
     const isHome = page.__url === '/';
     // Each detail page already carries a unique hero subtitle — use it so every
-    // URL gets its own description/OG text instead of one shared studio blurb.
+    // URL gets its own description/OG text instead of one shared site blurb.
     const heroSub = (page.sections ?? []).find((s): s is types.HeroSection => s.type === 'HeroSection')?.subtitle;
-    const description = isHome ? STUDIO_BLURB : truncate(heroSub || STUDIO_BLURB);
-    const title = isHome ? 'BG Mobile Dev — Independent iOS Studio' : `${page.title} · BG Mobile Dev`;
+    const description = isHome ? SITE_BLURB : truncate(heroSub || SITE_BLURB);
+    const title = isHome ? 'BG Mobile Dev — Independent iOS Developer' : `${page.title} · BG Mobile Dev`;
     const canonical = `${SITE}${page.__url === '/' ? '' : page.__url}`;
     const ogImage = `${SITE}/images/og-default.png`;
 

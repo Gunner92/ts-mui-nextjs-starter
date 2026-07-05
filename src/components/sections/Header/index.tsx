@@ -73,7 +73,7 @@ const Wordmark: React.FC = () => (
                 BG MOBILE DEV
             </MuiBox>
             <MuiBox component="span" sx={{ fontFamily: fonts.mono, fontSize: '0.56rem', letterSpacing: '0.34em', color: 'var(--ink-3)', mt: 0.4 }}>
-                iOS STUDIO
+                iOS DEVELOPER
             </MuiBox>
         </MuiBox>
     </MuiBox>

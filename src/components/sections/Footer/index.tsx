@@ -84,7 +84,7 @@ export const Footer: React.FC<Props> = (props) => {
                             </MuiBox>
                         </MuiBox>
                         <MuiTypography sx={{ fontSize: '0.95rem', lineHeight: 1.65, color: 'var(--ink-2)', maxWidth: '34ch' }}>
-                            An independent iOS studio crafting small, useful apps for health, travel, photography and everyday life.
+                            Burak Guner — an independent iOS developer crafting small, useful apps for health, travel, photography and everyday life.
                         </MuiTypography>
                     </MuiBox>
 

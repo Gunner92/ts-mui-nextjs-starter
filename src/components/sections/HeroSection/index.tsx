@@ -153,7 +153,7 @@ const LandingHero: React.FC<Props> = (props) => {
             >
                 <MuiBox sx={{ width: 9, height: 9, bgcolor: 'var(--accent)', borderRadius: '1px' }} />
                 <MuiBox component="span" sx={{ fontFamily: fonts.mono, fontSize: '0.72rem', letterSpacing: '0.22em', color: 'var(--ink-2)' }}>
-                    INDEPENDENT iOS STUDIO
+                    INDEPENDENT iOS DEVELOPER
                 </MuiBox>
                 <MuiBox sx={{ flex: 1, height: '1px', bgcolor: 'var(--line)' }} />
                 <MuiBox component="span" sx={{ fontFamily: fonts.mono, fontSize: '0.72rem', letterSpacing: '0.18em', color: 'var(--ink-3)', display: { xs: 'none', sm: 'block' } }}>

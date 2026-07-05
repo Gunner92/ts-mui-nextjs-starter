@@ -4,7 +4,7 @@ type: Page
 sections:
 - type: HeroSection
   title: Small apps, made with obsessive care.
-  subtitle: An independent iOS studio shipping tools people actually keep.
+  subtitle: An independent iOS developer shipping tools people actually keep.
   text: From food-label scanners to jet-lag plans, decibel meters to AI identifiers — twenty-one apps on the App Store, each built to solve one real problem and earn its place on your home screen.
   actions:
   - type: Button
