@@ -4,7 +4,7 @@ title: Privacy Policy
 sections:
   - type: PrivacySection
     title: Privacy Policy
-    lastUpdated: February 25, 2026
+    lastUpdated: August 18, 2026
     content: >
       This Privacy Policy describes how BG Mobile Dev ("we", "us", or "our")
       collects, uses, and shares information when you use any of our mobile
@@ -16,7 +16,8 @@ sections:
       Bird Identifier, Animal Identifier, SnakeSnap - Reptile Scanner, Watch ID
       - AI Watch Scanner, Signature Maker - eSign, Meal Planner - Grocery List,
       Level Tool - Ruler & Measure, Bill Organizer - Expenses, Mindful Minutes,
-      Gratitude Journal, and Mywellness - Wellness Living.
+      Gratitude Journal, Mywellness - Wellness Living, and Incy - Cosmetic
+      Scanner.
 
 
       ## Information We Collect
@@ -53,11 +54,44 @@ sections:
       ### Camera and Photo Access
 
       Some of our Apps (Right Food, Bird Identifier, Animal Identifier,
-      GlowUp, Coin Identifier, Stamp Identifier, Fossil Identifier) require
-      camera or photo library access to provide their core functionality
-      (scanning, identification). Images are processed either on-device or
-      through secure AI services and are not stored on our servers after
-      processing.
+      GlowUp, Coin Identifier, Stamp Identifier, Fossil Identifier, Incy)
+      require camera or photo library access to provide their core
+      functionality (scanning, identification). In Apps that use AI
+      identification, images are processed through secure AI services and
+      are not stored on our servers after processing. Apps that identify
+      entirely on the device never transmit images at all — the per-app
+      section below states where that applies.
+
+
+      ### Incy - Cosmetic Scanner (On-Device Only)
+
+      Incy runs entirely on your device and is an exception to the general
+      statements in this policy:
+
+      - Camera frames and the ingredient text recognized from them never
+      leave your device. They are not uploaded anywhere, and they are not
+      stored on our servers.
+
+      - Ingredient parsing, matching, and scoring are performed on your
+      device. No AI service is involved, and no image is ever transmitted.
+
+      - The only network request Incy makes happens when you scan a
+      barcode: an anonymous product lookup in the open
+      [Open Beauty Facts](https://world.openbeautyfacts.org) database. That
+      request carries the barcode and the app's standard User-Agent (Incy's
+      name and version plus our own developer contact address, which the
+      database requires of every client) — and nothing else: no account, no
+      device identifier, no advertising identifier, and no personal data.
+      As with any internet request, Open Beauty Facts receives the network
+      address it is contacted from; we never receive it. Open Beauty Facts
+      is an independent project governed by its
+      [own privacy policy](https://world.openbeautyfacts.org/privacy).
+
+      - Incy has no user accounts, no analytics, and no tracking. The
+      "Automatically Collected Information" and "Third-Party Services"
+      practices described in this policy do not apply to Incy, except that
+      subscriptions are handled by Apple's App Store as described under
+      "Subscriptions".
 
 
       ## How We Use Your Information
