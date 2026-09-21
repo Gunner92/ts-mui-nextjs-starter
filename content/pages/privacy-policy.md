@@ -13,7 +13,7 @@ sections:
       AI Coach, GlowUp - Fun Photo Effects, HearGuard - Decibel Meter, Matcha -
       Recipes & Brew Timer, Coin Identifier - Rare Value, Stamp Snap - Value
       Identifier, Fossil Identifier - Dino Scan, Flower Identifier - Plant ID,
-      Bird Identifier, Animal Identifier, SnakeSnap - Reptile Scanner, Watch ID
+      Bird Identifier, Animal Identifier, Watch ID
       - AI Watch Scanner, Signature Maker - eSign, Meal Planner - Grocery List,
       Level Tool - Ruler & Measure, Bill Organizer - Expenses, Mindful Minutes,
       Gratitude Journal, Mywellness - Wellness Living, and Incy - Cosmetic

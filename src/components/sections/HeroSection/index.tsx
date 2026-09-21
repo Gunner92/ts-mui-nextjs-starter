@@ -37,7 +37,6 @@ const TICKER = [
     'Fossil Scan',
     'Flower ID',
     'Bird ID',
-    'SnakeSnap',
     'Watch ID',
     'Signature Maker',
     'Meal Planner',

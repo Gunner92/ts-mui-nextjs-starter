@@ -107,13 +107,6 @@ sections:
     appStoreUrl: https://apps.apple.com/us/app/animal-%C4%B1dentifier-fish-bird-ai/id6741852412?uo=4
     pageUrl: /animal-identifier
   - type: AppCard
-    title: SnakeSnap - Reptile Scanner
-    description: Identify snakes and reptiles fast with AI to stay informed and safe outdoors.
-    icon: /images/icons/snakesnap.png
-    category: Identify
-    appStoreUrl: https://apps.apple.com/us/app/snakesnap-ai-reptile-scanner/id6766056843?uo=4
-    pageUrl: /snakesnap
-  - type: AppCard
     title: Watch ID - AI Watch Scanner
     description: Identify luxury watches and learn their details and value with AI.
     icon: /images/icons/watch-id.png
