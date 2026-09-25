@@ -1,10 +1,23 @@
 /**
  * App Store Server Notifications V2 → Consumption API helper.
  *
- * When a customer requests a refund for an app that has the ASN V2 URL configured,
- * Apple sends a CONSUMPTION_REQUEST. We respond with consumption information whose
- * `refundPreference = PREFER_DECLINE` tells Apple we'd prefer the refund be declined.
- * Apple makes the final decision — this influences, it does not hard-reject.
+ * When a customer asks Apple for a refund on an app that has the ASN V2 URL
+ * configured, Apple sends a CONSUMPTION_REQUEST and gives us 12 hours to reply
+ * with consumption information. Apple's rules for that reply are strict:
+ *
+ *   - We may reply ONLY if the customer consented to us sharing their usage
+ *     with Apple. No consent → do not respond at all.
+ *   - Every field we send must be true. Apple uses it to decide the refund.
+ *
+ * So this module answers only for apps that have a real consent flow (today:
+ * Yuko), only for transactions that carry the app account token the app
+ * attached at purchase time, and only when the app's usage record — uploaded
+ * by the app itself after the customer said yes — shows consent. Everything
+ * else is logged and left unanswered, which is exactly what Apple asks for.
+ *
+ * The usage record lives on the AI proxy site (Netlify Blobs), because that is
+ * the only backend these apps talk to. It is fetched server-to-server with a
+ * shared secret.
  */
 import {
   AppStoreServerAPIClient,
@@ -31,7 +44,34 @@ export interface ParsedNotification {
   environment?: string
   appAppleId?: number
   consumptionRequestReason?: string
+  /** UUID the app attached at purchase time; absent on older purchases. */
+  appAccountToken?: string
+  /** Milliseconds since epoch. */
+  purchaseDate?: number
+  /** 1 = introductory offer (for Yuko that is the free trial), 2 = promotional, 3 = offer code. */
+  offerType?: number
 }
+
+/** The usage record the app uploads to the proxy once the customer consents. */
+export interface RefundAssistRecord {
+  token: string
+  consented: boolean
+  consentDate?: string | null
+  firstSeenDate?: string
+  scansTotal?: number
+  daysWithScans?: number
+  /** "yyyy-MM" → scans in that month. */
+  scansByMonth?: Record<string, number>
+  purchases?: { productId: string; purchaseDate: string }[]
+  appVersion?: string
+  updatedAt?: string
+}
+
+/** Apps whose binaries ask for consent and upload usage. Nothing else is answered. */
+const CONSENT_FLOW_BUNDLES = new Set<string>(['burak.fatih.right.food'])
+
+/** Scans after purchase that make a subscription "fully" used for our purposes. */
+const FULLY_CONSUMED_SCANS = 10
 
 function decodeJwtPayload(jws: string): any {
   const part = jws.split('.')[1]
@@ -49,6 +89,9 @@ export function parseNotification(signedPayload: string): ParsedNotification {
   let bundleId: string | undefined = data.bundleId
   let productId: string | undefined
   let environment: string | undefined = data.environment
+  let appAccountToken: string | undefined
+  let purchaseDate: number | undefined
+  let offerType: number | undefined
 
   if (data.signedTransactionInfo) {
     const tx = decodeJwtPayload(data.signedTransactionInfo)
@@ -57,6 +100,9 @@ export function parseNotification(signedPayload: string): ParsedNotification {
     bundleId = bundleId || tx.bundleId
     productId = tx.productId
     environment = environment || tx.environment
+    appAccountToken = typeof tx.appAccountToken === 'string' ? tx.appAccountToken.toLowerCase() : undefined
+    purchaseDate = typeof tx.purchaseDate === 'number' ? tx.purchaseDate : undefined
+    offerType = typeof tx.offerType === 'number' ? tx.offerType : undefined
   }
 
   return {
@@ -69,21 +115,15 @@ export function parseNotification(signedPayload: string): ParsedNotification {
     environment,
     appAppleId: data.appAppleId,
     consumptionRequestReason: data.consumptionRequestReason,
+    appAccountToken,
+    purchaseDate,
+    offerType,
   }
 }
 
 function privateKey(): string {
   // Netlify env vars often store newlines as literal "\n".
   return (process.env.ASC_IAP_KEY || '').replace(/\\n/g, '\n')
-}
-
-function isAllowedBundle(bundleId?: string): boolean {
-  const allow = (process.env.ASC_BUNDLE_IDS || '')
-    .split(',')
-    .map((s) => s.trim())
-    .filter(Boolean)
-  if (allow.length === 0) return true // no allowlist configured → accept all our apps
-  return !!bundleId && allow.includes(bundleId)
 }
 
 function clientFor(bundleId: string, env?: string): AppStoreServerAPIClient {
@@ -97,32 +137,127 @@ function clientFor(bundleId: string, env?: string): AppStoreServerAPIClient {
   )
 }
 
-/** Sends consumption info that opposes the refund for the given transaction. */
-export async function opposeRefund(n: ParsedNotification): Promise<{ ok: boolean; detail: string }> {
-  if (!n.transactionId || !n.bundleId) return { ok: false, detail: 'missing transactionId/bundleId' }
-  if (!isAllowedBundle(n.bundleId)) return { ok: false, detail: `bundle not allowed: ${n.bundleId}` }
+// ---------------------------------------------------------------------------
+// Usage record lookup (proxy site, server-to-server)
 
-  const client = clientFor(n.bundleId, n.environment)
+/** Fetches the app's usage record for this token, or null when there is none. */
+export async function fetchRefundAssist(
+  bundleId: string,
+  token: string,
+  fetchImpl: typeof fetch = fetch,
+): Promise<RefundAssistRecord | null> {
+  const base = (process.env.REFUND_ASSIST_URL || '').replace(/\/+$/, '')
+  const secret = process.env.REFUND_ASSIST_SECRET || ''
+  if (!base || !secret) {
+    throw new Error('REFUND_ASSIST_URL / REFUND_ASSIST_SECRET not configured')
+  }
+  const url = `${base}/api/refund-assist?bundleId=${encodeURIComponent(bundleId)}&token=${encodeURIComponent(token)}`
+  const res = await fetchImpl(url, { headers: { 'x-refund-assist-secret': secret } })
+  if (res.status === 404) return null
+  if (!res.ok) throw new Error(`refund-assist lookup failed: HTTP ${res.status}`)
+  return (await res.json()) as RefundAssistRecord
+}
 
-  const consumptionRequest: ConsumptionRequestV1 = {
-    // Apple rejects the request with 4000033 unless this field is present:
-    // a valid UUID or an empty string. We never set an app account token on
-    // purchases, so it is always empty. Every CONSUMPTION_REQUEST since launch
-    // failed on this line (Netlify function log, 2026-09-25).
-    appAccountToken: '',
+// ---------------------------------------------------------------------------
+// Truthful field mapping (pure, unit-testable)
+
+function monthKey(d: Date): string {
+  return `${d.getUTCFullYear()}-${String(d.getUTCMonth() + 1).padStart(2, '0')}`
+}
+
+/** Scans recorded in the purchase month and every month after it. Month
+ *  granularity is what the app uploads; it over-counts the purchase month a
+ *  little, never under-counts, which is the safe direction for the customer. */
+export function scansSincePurchase(record: RefundAssistRecord, purchaseDate?: number): number {
+  const byMonth = record.scansByMonth || {}
+  if (!purchaseDate) return record.scansTotal || 0
+  const from = monthKey(new Date(purchaseDate))
+  return Object.entries(byMonth)
+    .filter(([month]) => month >= from)
+    .reduce((sum, [, n]) => sum + (Number(n) || 0), 0)
+}
+
+export function tenureFor(firstSeenDate: string | undefined, now: Date): AccountTenure {
+  if (!firstSeenDate) return AccountTenure.UNDECLARED
+  const first = new Date(firstSeenDate)
+  if (Number.isNaN(first.getTime())) return AccountTenure.UNDECLARED
+  const days = Math.max(0, (now.getTime() - first.getTime()) / 86_400_000)
+  if (days < 3) return AccountTenure.ZERO_TO_THREE_DAYS
+  if (days < 10) return AccountTenure.THREE_DAYS_TO_TEN_DAYS
+  if (days < 30) return AccountTenure.TEN_DAYS_TO_THIRTY_DAYS
+  if (days < 90) return AccountTenure.THIRTY_DAYS_TO_NINETY_DAYS
+  if (days < 180) return AccountTenure.NINETY_DAYS_TO_ONE_HUNDRED_EIGHTY_DAYS
+  if (days < 365) return AccountTenure.ONE_HUNDRED_EIGHTY_DAYS_TO_THREE_HUNDRED_SIXTY_FIVE_DAYS
+  return AccountTenure.GREATER_THAN_THREE_HUNDRED_SIXTY_FIVE_DAYS
+}
+
+/**
+ * Builds the consumption information from what we actually know. Anything we
+ * do not measure is sent as UNDECLARED rather than guessed:
+ *
+ *   consumptionStatus   from scans recorded since the purchase
+ *   sampleContentProvided  true when the transaction carried an introductory
+ *                          offer — Yuko's only introductory offer is the free trial
+ *   deliveryStatus      DELIVERED_AND_WORKING_PROPERLY: StoreKit granted the
+ *                       entitlement and the app has no known outage for it
+ *   accountTenure       from the first launch date the app recorded
+ *   playTime, lifetime dollars   not measured → UNDECLARED
+ *   refundPreference    PREFER_DECLINE only when the customer actually used the
+ *                       purchase; NO_PREFERENCE when they did not
+ */
+export function buildConsumptionRequest(
+  n: ParsedNotification,
+  record: RefundAssistRecord,
+  now: Date,
+): ConsumptionRequestV1 {
+  const scans = scansSincePurchase(record, n.purchaseDate)
+  const consumptionStatus =
+    scans <= 0 ? ConsumptionStatus.NOT_CONSUMED
+    : scans < FULLY_CONSUMED_SCANS ? ConsumptionStatus.PARTIALLY_CONSUMED
+    : ConsumptionStatus.FULLY_CONSUMED
+
+  return {
+    appAccountToken: record.token,
     customerConsented: true,
-    consumptionStatus: ConsumptionStatus.NOT_CONSUMED,
+    consumptionStatus,
     platform: Platform.APPLE,
-    sampleContentProvided: false,
+    sampleContentProvided: n.offerType === 1,
     deliveryStatus: DeliveryStatusV1.DELIVERED_AND_WORKING_PROPERLY,
-    accountTenure: AccountTenure.UNDECLARED,
+    accountTenure: tenureFor(record.firstSeenDate, now),
     playTime: PlayTime.UNDECLARED,
     lifetimeDollarsRefunded: LifetimeDollarsRefunded.UNDECLARED,
     lifetimeDollarsPurchased: LifetimeDollarsPurchased.UNDECLARED,
     userStatus: UserStatus.ACTIVE,
-    refundPreference: RefundPreferenceV1.PREFER_DECLINE, // oppose the refund
+    refundPreference: scans > 0 ? RefundPreferenceV1.PREFER_DECLINE : RefundPreferenceV1.NO_PREFERENCE,
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Entry point
+
+/**
+ * Answers a CONSUMPTION_REQUEST, or explains why it is left unanswered.
+ * `ok: false` here is not a failure: it is the correct, silent outcome for
+ * every case where we have no consent.
+ */
+export async function answerConsumptionRequest(
+  n: ParsedNotification,
+  deps: { fetchImpl?: typeof fetch; now?: () => Date } = {},
+): Promise<{ ok: boolean; detail: string }> {
+  if (!n.transactionId || !n.bundleId) return { ok: false, detail: 'missing transactionId/bundleId' }
+  if (!CONSENT_FLOW_BUNDLES.has(n.bundleId)) {
+    return { ok: false, detail: `no consent flow for ${n.bundleId} — not responding` }
+  }
+  if (!n.appAccountToken) {
+    return { ok: false, detail: 'transaction carries no appAccountToken — not responding' }
   }
 
-  await client.sendConsumptionData(n.transactionId, consumptionRequest)
-  return { ok: true, detail: `consumption sent (PREFER_DECLINE) for ${n.transactionId}` }
+  const record = await fetchRefundAssist(n.bundleId, n.appAccountToken, deps.fetchImpl)
+  if (!record) return { ok: false, detail: 'no usage record for this token — not responding' }
+  if (!record.consented) return { ok: false, detail: 'customer has not consented — not responding' }
+
+  const request = buildConsumptionRequest(n, record, (deps.now || (() => new Date()))())
+  await clientFor(n.bundleId, n.environment).sendConsumptionData(n.transactionId, request)
+  const preference = request.refundPreference === RefundPreferenceV1.PREFER_DECLINE ? 'PREFER_DECLINE' : 'NO_PREFERENCE'
+  return { ok: true, detail: `consumption sent (${preference}, status ${request.consumptionStatus}) for ${n.transactionId}` }
 }

@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { parseNotification, opposeRefund } from '../../utils/appstore'
+import { parseNotification, answerConsumptionRequest } from '../../utils/appstore'
 
 /**
  * App Store Server Notifications V2 endpoint.
@@ -7,8 +7,10 @@ import { parseNotification, opposeRefund } from '../../utils/appstore'
  * App Store Server Notifications (Production + Sandbox):
  *   https://bgmobiledev.com/api/appstore-notifications
  *
- * On CONSUMPTION_REQUEST it replies to Apple's Consumption API with
- * refundPreference = PREFER_DECLINE to oppose the refund.
+ * On CONSUMPTION_REQUEST it replies to Apple's Consumption API only for apps
+ * with a consent flow, only for transactions carrying our app account token,
+ * and only when the customer's uploaded usage record shows consent. Every
+ * other request is logged and deliberately left unanswered (Apple's rule).
  */
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === 'GET') {
@@ -32,11 +34,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     if (n.notificationType === 'CONSUMPTION_REQUEST') {
       try {
-        const result = await opposeRefund(n)
-        console.log('[ASN] opposeRefund:', result.detail)
+        const result = await answerConsumptionRequest(n)
+        console.log('[ASN] consumption:', result.detail)
       } catch (e: any) {
-        // Never fail the webhook for Apple — log and move on.
-        console.error('[ASN] opposeRefund error:', e?.message || e)
+        // Never fail the webhook for Apple — log and move on. The Apple API
+        // error object carries httpStatusCode/apiError; surface them.
+        console.error('[ASN] consumption error:', e?.message || e, e?.httpStatusCode || '', e?.apiError || '')
       }
     }
 
