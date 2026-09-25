@@ -9,4 +9,4 @@
 # Set to the moment the policy page says so; never earlier.
 [context.production.environment]
   # Set automatically the moment the privacy page publishes the refund paragraph.
-  REFUND_CONSENT_EFFECTIVE_DATE = ""
+  REFUND_CONSENT_EFFECTIVE_DATE = "2026-09-25T19:09:03Z"
