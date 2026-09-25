@@ -8,4 +8,5 @@
 # privacy policy that discloses refund-time usage sharing with Apple.
 # Set to the moment the policy page says so; never earlier.
 [context.production.environment]
-  REFUND_CONSENT_EFFECTIVE_DATE = "2026-09-26T09:00:00Z"
+  # Set automatically the moment the privacy page publishes the refund paragraph.
+  REFUND_CONSENT_EFFECTIVE_DATE = ""
