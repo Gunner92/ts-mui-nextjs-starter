@@ -4,3 +4,8 @@
 [build]
   publish = ".next"
   command = "npm run build"
+# Refund webhook: purchases at or after this moment were made under the
+# privacy policy that discloses refund-time usage sharing with Apple.
+# Set to the moment the policy page says so; never earlier.
+[context.production.environment]
+  REFUND_CONSENT_EFFECTIVE_DATE = "2026-09-26T09:00:00Z"
