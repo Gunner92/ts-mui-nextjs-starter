@@ -105,6 +105,11 @@ export async function opposeRefund(n: ParsedNotification): Promise<{ ok: boolean
   const client = clientFor(n.bundleId, n.environment)
 
   const consumptionRequest: ConsumptionRequestV1 = {
+    // Apple rejects the request with 4000033 unless this field is present:
+    // a valid UUID or an empty string. We never set an app account token on
+    // purchases, so it is always empty. Every CONSUMPTION_REQUEST since launch
+    // failed on this line (Netlify function log, 2026-09-25).
+    appAccountToken: '',
     customerConsented: true,
     consumptionStatus: ConsumptionStatus.NOT_CONSUMED,
     platform: Platform.APPLE,
