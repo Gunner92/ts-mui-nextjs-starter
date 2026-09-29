@@ -10,13 +10,17 @@
  *   - Every field we send must be true. Apple uses it to decide the refund.
  *
  * So this module answers only for Yuko, and only when one of two consent
- * sources holds: (1) the customer purchased after the privacy policy started
+ * sources holds: (1) the customer first bought after the privacy policy started
  * disclosing the sharing (the policy is linked on the paywall and the store
- * page; the date is REFUND_CONSENT_EFFECTIVE_DATE), or (2) a future build
+ * page; the date is POLICY_CONSENT_EFFECTIVE_DATE), or (2) a future build
  * attached an app account token and uploaded a usage record showing consent.
- * With (1) alone we do not know how much was used, so consumption is sent as
- * UNDECLARED rather than guessed. Everything else is logged and left
- * unanswered, which is exactly what Apple asks for.
+ * Neither source tells us a consumption amount, so none is sent rather than a
+ * guess. Everything else is logged and left unanswered, which is exactly what
+ * Apple asks for.
+ *
+ * Answers go to Send Consumption Information (V2, /inApps/v2/…), which covers
+ * every product type. V1 only covers consumables and auto-renewable
+ * subscriptions, so it cannot answer for Yuko's lifetime (non-consumable) plan.
  *
  * The usage record lives on the AI proxy site (Netlify Blobs), because that is
  * the only backend these apps talk to. It is fetched server-to-server with a
@@ -25,16 +29,9 @@
 import {
   AppStoreServerAPIClient,
   Environment,
-  type ConsumptionRequestV1,
-  ConsumptionStatus,
-  DeliveryStatusV1,
-  Platform,
-  AccountTenure,
-  PlayTime,
-  LifetimeDollarsRefunded,
-  LifetimeDollarsPurchased,
-  UserStatus,
-  RefundPreferenceV1,
+  type ConsumptionRequest,
+  DeliveryStatus,
+  RefundPreference,
 } from '@apple/app-store-server-library'
 
 export interface ParsedNotification {
@@ -53,8 +50,6 @@ export interface ParsedNotification {
   purchaseDate?: number
   /** First purchase in this subscription family, milliseconds since epoch. */
   originalPurchaseDate?: number
-  /** 1 = introductory offer (for Yuko that is the free trial), 2 = promotional, 3 = offer code. */
-  offerType?: number
 }
 
 /** The usage record the app uploads to the proxy once the customer consents. */
@@ -72,8 +67,21 @@ export interface RefundAssistRecord {
   updatedAt?: string
 }
 
-/** Apps whose binaries ask for consent and upload usage. Nothing else is answered. */
-const CONSENT_FLOW_BUNDLES = new Set<string>(['burak.fatih.right.food'])
+/**
+ * Apps whose customers can consent, with the facts we state for each. Nothing
+ * else is answered.
+ *
+ * sampleContentProvided — Apple: true if, before the purchase, you provided a
+ * free sample or free trial, or information about the content and how it
+ * works. Yuko lets every non-subscriber run three free scans before the
+ * paywall (ScanLimitManager.freeScanLimit, gate in AppTabView), and its
+ * paywall describes the features and the weekly plan's free trial. This is a
+ * fact about the app, not the transaction: the refunded transaction is the
+ * paid charge, which never carries the trial's offerType.
+ */
+const CONSENT_FLOW_APPS = new Map<string, { sampleContentProvided: boolean }>([
+  ['burak.fatih.right.food', { sampleContentProvided: true }],
+])
 
 /**
  * Consent by purchase under the published privacy policy.
@@ -82,22 +90,24 @@ const CONSENT_FLOW_BUNDLES = new Set<string>(['burak.fatih.right.food'])
  * states that when a customer asks Apple for a refund we may share how much
  * they used the app with Apple. A purchase made after that statement went live
  * is a purchase made on those terms. Purchases before it are not, and get no
- * answer. The date is configured, not hard-coded, so it can only be set once
- * the page really says so: REFUND_CONSENT_EFFECTIVE_DATE (ISO 8601).
+ * answer. For a subscription the purchase that counts is the first one — when
+ * the customer went through the paywall — not a later renewal: a subscription
+ * started before the policy stays on the old terms when it renews.
+ *
+ * This is the moment the paragraph was observed live on the page. It lives in
+ * code, not in netlify.toml: Netlify does not pass netlify.toml variables to
+ * functions, so the earlier env-based date was always unset at runtime and
+ * every request was refused as "predates the policy". Never move it earlier.
  */
-function policyConsentEffectiveDate(): number | null {
-  const raw = process.env.REFUND_CONSENT_EFFECTIVE_DATE
-  if (!raw) return null
-  const t = Date.parse(raw)
-  return Number.isNaN(t) ? null : t
+const POLICY_CONSENT_EFFECTIVE_DATE = '2026-09-25T19:09:03Z'
+
+function policyConsentEffectiveDate(): number {
+  return Date.parse(POLICY_CONSENT_EFFECTIVE_DATE)
 }
 
-export function purchasedUnderPolicy(n: ParsedNotification, effective: number | null): boolean {
-  return effective !== null && typeof n.purchaseDate === 'number' && n.purchaseDate >= effective
+export function purchasedUnderPolicy(n: ParsedNotification, effective: number): boolean {
+  return typeof n.originalPurchaseDate === 'number' && n.originalPurchaseDate >= effective
 }
-
-/** Scans after purchase that make a subscription "fully" used for our purposes. */
-const FULLY_CONSUMED_SCANS = 10
 
 function decodeJwtPayload(jws: string): any {
   const part = jws.split('.')[1]
@@ -105,8 +115,7 @@ function decodeJwtPayload(jws: string): any {
   return JSON.parse(Buffer.from(part, 'base64url').toString('utf8'))
 }
 
-/** Decodes the signed payload without full cert-chain verification (integrity is
- *  re-established by calling the App Store Server API with our own signed key). */
+/** Decodes the signed payload without verifying its signature. */
 export function parseNotification(signedPayload: string): ParsedNotification {
   const payload = decodeJwtPayload(signedPayload)
   const data = payload.data || {}
@@ -118,7 +127,6 @@ export function parseNotification(signedPayload: string): ParsedNotification {
   let appAccountToken: string | undefined
   let purchaseDate: number | undefined
   let originalPurchaseDate: number | undefined
-  let offerType: number | undefined
 
   if (data.signedTransactionInfo) {
     const tx = decodeJwtPayload(data.signedTransactionInfo)
@@ -130,7 +138,6 @@ export function parseNotification(signedPayload: string): ParsedNotification {
     appAccountToken = typeof tx.appAccountToken === 'string' ? tx.appAccountToken.toLowerCase() : undefined
     purchaseDate = typeof tx.purchaseDate === 'number' ? tx.purchaseDate : undefined
     originalPurchaseDate = typeof tx.originalPurchaseDate === 'number' ? tx.originalPurchaseDate : undefined
-    offerType = typeof tx.offerType === 'number' ? tx.offerType : undefined
   }
 
   return {
@@ -146,7 +153,6 @@ export function parseNotification(signedPayload: string): ParsedNotification {
     appAccountToken,
     purchaseDate,
     originalPurchaseDate,
-    offerType,
   }
 }
 
@@ -206,74 +212,38 @@ export function scansSincePurchase(record: RefundAssistRecord, purchaseDate?: nu
     .reduce((sum, [, n]) => sum + (Number(n) || 0), 0)
 }
 
-export function tenureFor(firstSeenDate: string | undefined, now: Date): AccountTenure {
-  if (!firstSeenDate) return AccountTenure.UNDECLARED
-  const first = new Date(firstSeenDate)
-  if (Number.isNaN(first.getTime())) return AccountTenure.UNDECLARED
-  const days = Math.max(0, (now.getTime() - first.getTime()) / 86_400_000)
-  if (days < 3) return AccountTenure.ZERO_TO_THREE_DAYS
-  if (days < 10) return AccountTenure.THREE_DAYS_TO_TEN_DAYS
-  if (days < 30) return AccountTenure.TEN_DAYS_TO_THIRTY_DAYS
-  if (days < 90) return AccountTenure.THIRTY_DAYS_TO_NINETY_DAYS
-  if (days < 180) return AccountTenure.NINETY_DAYS_TO_ONE_HUNDRED_EIGHTY_DAYS
-  if (days < 365) return AccountTenure.ONE_HUNDRED_EIGHTY_DAYS_TO_THREE_HUNDRED_SIXTY_FIVE_DAYS
-  return AccountTenure.GREATER_THAN_THREE_HUNDRED_SIXTY_FIVE_DAYS
-}
-
 /**
  * Builds the consumption information from what we actually know. Anything we
- * do not measure is sent as UNDECLARED rather than guessed:
+ * do not measure is left out rather than guessed:
  *
- *   consumptionStatus   from scans recorded since the purchase
- *   sampleContentProvided  true when the transaction carried an introductory
- *                          offer — Yuko's only introductory offer is the free trial
- *   deliveryStatus      DELIVERED_AND_WORKING_PROPERLY: StoreKit granted the
- *                       entitlement and the app has no known outage for it
- *   accountTenure       from the first launch date the app recorded
- *   playTime, lifetime dollars   not measured → UNDECLARED
- *   refundPreference    PREFER_DECLINE only when the customer actually used the
- *                       purchase; NO_PREFERENCE when they did not
+ *   customerConsented      true — we only get here with consent
+ *   deliveryStatus         DELIVERED: StoreKit granted the entitlement and the
+ *                          app has no known outage for it
+ *   sampleContentProvided  the app's fact from CONSENT_FLOW_APPS
+ *   refundPreference       DECLINE, except for measured non-use, where we take
+ *                          no position and leave it out
+ *   consumptionPercentage  never sent: we do not measure it, and Apple rejects it
+ *                          for auto-renewable subscriptions (it derives the
+ *                          percentage from elapsed time itself)
  */
 export function buildConsumptionRequest(
   n: ParsedNotification,
   record: RefundAssistRecord | null,
-  now: Date,
-): ConsumptionRequestV1 {
-  // With a usage record we can say how much was used. Without one (consent
-  // came from purchasing under the policy, and this build uploads nothing)
-  // we do not know, and we say so: UNDECLARED, never a guess.
+  app: { sampleContentProvided: boolean },
+): ConsumptionRequest {
+  // With a usage record we know whether the purchase was used. Without one
+  // (consent came from purchasing under the policy, and this build uploads
+  // nothing) we do not, and we do not pretend to.
   const scans = record ? scansSincePurchase(record, n.purchaseDate) : null
-  const consumptionStatus =
-    scans === null ? ConsumptionStatus.UNDECLARED
-    : scans <= 0 ? ConsumptionStatus.NOT_CONSUMED
-    : scans < FULLY_CONSUMED_SCANS ? ConsumptionStatus.PARTIALLY_CONSUMED
-    : ConsumptionStatus.FULLY_CONSUMED
-
-  // Tenure: the app's first-launch date when we have it, otherwise the first
-  // purchase in this subscription family, which Apple itself reports.
-  const tenureSource = record?.firstSeenDate
-    ?? (typeof n.originalPurchaseDate === 'number' ? new Date(n.originalPurchaseDate).toISOString() : undefined)
+  const measuredNonUse = scans !== null && scans <= 0
 
   // The owner's stated preference is to decline. It is a preference, not a
-  // fact, so it may be sent whenever we are entitled to answer at all; the
-  // one exception is measured non-use, where we take no position.
-  const refundPreference = scans !== null && scans <= 0
-    ? RefundPreferenceV1.NO_PREFERENCE
-    : RefundPreferenceV1.PREFER_DECLINE
-
+  // fact, so it may be sent whenever we are entitled to answer at all.
   return {
-    appAccountToken: record?.token ?? n.appAccountToken ?? '',
     customerConsented: true,
-    consumptionStatus,
-    platform: Platform.APPLE,
-    sampleContentProvided: n.offerType === 1,
-    deliveryStatus: DeliveryStatusV1.DELIVERED_AND_WORKING_PROPERLY,
-    accountTenure: tenureFor(tenureSource, now),
-    playTime: PlayTime.UNDECLARED,
-    lifetimeDollarsRefunded: LifetimeDollarsRefunded.UNDECLARED,
-    lifetimeDollarsPurchased: LifetimeDollarsPurchased.UNDECLARED,
-    userStatus: UserStatus.ACTIVE,
-    refundPreference,
+    deliveryStatus: DeliveryStatus.DELIVERED,
+    sampleContentProvided: app.sampleContentProvided,
+    ...(measuredNonUse ? {} : { refundPreference: RefundPreference.DECLINE }),
   }
 }
 
@@ -287,10 +257,11 @@ export function buildConsumptionRequest(
  */
 export async function answerConsumptionRequest(
   n: ParsedNotification,
-  deps: { fetchImpl?: typeof fetch; now?: () => Date } = {},
+  deps: { fetchImpl?: typeof fetch } = {},
 ): Promise<{ ok: boolean; detail: string }> {
   if (!n.transactionId || !n.bundleId) return { ok: false, detail: 'missing transactionId/bundleId' }
-  if (!CONSENT_FLOW_BUNDLES.has(n.bundleId)) {
+  const app = CONSENT_FLOW_APPS.get(n.bundleId)
+  if (!app) {
     return { ok: false, detail: `no consent flow for ${n.bundleId} — not responding` }
   }
 
@@ -302,13 +273,12 @@ export async function answerConsumptionRequest(
       return { ok: false, detail: 'customer has not consented — not responding' }
     }
   }
-  // Source 2: purchased under the privacy policy that discloses the sharing.
+  // Source 2: first purchased under the privacy policy that discloses the sharing.
   if (!record && !purchasedUnderPolicy(n, policyConsentEffectiveDate())) {
-    return { ok: false, detail: 'no usage record and purchase predates the policy — not responding' }
+    return { ok: false, detail: 'no usage record and first purchase predates the policy — not responding' }
   }
 
-  const request = buildConsumptionRequest(n, record, (deps.now || (() => new Date()))())
-  await clientFor(n.bundleId, n.environment).sendConsumptionData(n.transactionId, request)
-  const preference = request.refundPreference === RefundPreferenceV1.PREFER_DECLINE ? 'PREFER_DECLINE' : 'NO_PREFERENCE'
-  return { ok: true, detail: `consumption sent (${preference}, status ${request.consumptionStatus}) for ${n.transactionId}` }
+  const request = buildConsumptionRequest(n, record, app)
+  await clientFor(n.bundleId, n.environment).sendConsumptionInformation(n.transactionId, request)
+  return { ok: true, detail: `consumption sent (${request.refundPreference ?? 'no preference'}) for ${n.transactionId}` }
 }

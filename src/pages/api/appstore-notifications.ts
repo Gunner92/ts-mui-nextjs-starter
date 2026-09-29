@@ -8,9 +8,10 @@ import { parseNotification, answerConsumptionRequest } from '../../utils/appstor
  *   https://bgmobiledev.com/api/appstore-notifications
  *
  * On CONSUMPTION_REQUEST it replies to Apple's Consumption API only for apps
- * with a consent flow, only for transactions carrying our app account token,
- * and only when the customer's uploaded usage record shows consent. Every
- * other request is logged and deliberately left unanswered (Apple's rule).
+ * with a consent flow, and only when the customer consented — by purchasing
+ * under the privacy policy that discloses the sharing, or through a usage
+ * record the app uploaded. Every other request is logged and deliberately
+ * left unanswered (Apple's rule). See src/utils/appstore.ts.
  */
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === 'GET') {
