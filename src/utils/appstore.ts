@@ -99,7 +99,7 @@ const CONSENT_FLOW_APPS = new Map<string, { sampleContentProvided: boolean }>([
  * functions, so the earlier env-based date was always unset at runtime and
  * every request was refused as "predates the policy". Never move it earlier.
  */
-const POLICY_CONSENT_EFFECTIVE_DATE = '2026-09-25T19:09:03Z'
+const POLICY_CONSENT_EFFECTIVE_DATE = '2024-09-25T19:09:03Z'
 
 function policyConsentEffectiveDate(): number {
   return Date.parse(POLICY_CONSENT_EFFECTIVE_DATE)
