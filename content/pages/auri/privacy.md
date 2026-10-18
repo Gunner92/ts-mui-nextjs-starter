@@ -119,8 +119,8 @@ sections:
 
       The crisis support screen can open your Phone, Messages or Safari app to
       contact services such as the 988 Suicide & Crisis Lifeline. Auri does not
-      record that you used them. Links to this policy and Apple's Terms of Use
-      open in Safari.
+      record that you used them. Links to this policy, Apple's Terms of Use and
+      the research sources listed under Sources & methodology open in Safari.
 
 
       ## Safety and crisis protocol
@@ -128,10 +128,11 @@ sections:
 
       Auri is a wellness and self-reflection app, not a medical device, a
       therapy service or a crisis service, and its coach is an AI, not a person.
-      Every conversation starts by saying so. When a message suggests a risk of
-      self-harm, suicide or harm to others, the App detects this **on the
-      device**, does not continue normal coaching, and shows crisis resources
-      instead: in the US, call or text **988** (Suicide & Crisis Lifeline),
+      Every conversation starts by saying so. When something you write (a coach
+      message, a journal entry or a check-in note) suggests a risk of self-harm,
+      suicide, harm to others or being unsafe, the App recognizes this **on the
+      device** and shows crisis resources; in the coach, it pauses ordinary
+      coaching and responds with care: in the US, call or text **988** (Suicide & Crisis Lifeline),
       chat at 988lifeline.org, or call **911** in an emergency; elsewhere, local
       emergency numbers and [findahelpline.com](https://findahelpline.com).
       These resources are available in the App at any time without a purchase.
@@ -143,7 +144,8 @@ sections:
 
       Because we do not collect data from the App, we hold no personal data
       about you from it. You stay in control on your device: **Settings ›
-      Privacy center** lets you export a copy of everything Auri stores, or
+      Privacy center** lets you export a copy of your check-ins, journal
+      entries, conversations, notes and settings (photos stay in the App), or
       delete everything (optionally including the check-ins and mindful minutes
       Auri saved to Apple Health). Deleting the App also deletes its data from
       the device.
