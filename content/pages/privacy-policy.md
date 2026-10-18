@@ -11,8 +11,8 @@ sections:
       applications (collectively, the "Apps"), including but not limited to:
       Yuko - Food Safety Scan, Jet Lag Time Zone Shifter, Stress Watch - Auri
       AI Coach, GlowUp - Fun Photo Effects, HearGuard - Decibel Meter, Matcha -
-      Recipes & Brew Timer, Coin Identifier - Rare Value, Stamp Snap - Value
-      Identifier, Fossil Identifier - Dino Scan, Flower Identifier - Plant ID,
+      Recipes & Brew Timer, Coin Identifier - Rare Value, Stamp Identifier - Value
+      Range, Fossil Identifier - Dino Scan, Flower Identifier - Plant ID,
       Bird Identifier, Animal Identifier, Watch ID
       - AI Watch Scanner, Signature Maker - eSign, Meal Planner - Grocery List,
       Level Tool - Ruler & Measure, Bill Organizer - Expenses, Mindful Minutes,

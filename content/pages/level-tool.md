@@ -5,34 +5,24 @@ sections:
 - type: HeroSection
   title: Level Tool - Ruler & Measure
   subtitle: Turn your iPhone into a bubble level, ruler and measuring toolkit.
-  text: 'FREE TOOLS:
+  text: 'EIGHT MEASURING TOOLS IN ONE APP:
 
 
-    - Bubble Level: Accurate 2-axis spirit level
+    - Bubble Level: 2-axis spirit level
 
     - Screen Ruler: Measure in cm, inches & mm
 
-    - Protractor: Camera-based angle measurement
+    - Protractor: Measure angles by tilting your device
 
-    - Stud Finder: Detect wall studs with magnetometer
+    - Stud Finder: Detect wall studs with the magnetometer
 
     - Metal Detector: Find hidden metal objects
 
-    - Compass: Digital compass with inclinometer
-
-
-    PREMIUM TOOLS (requires Level Tool Premium subscription):
-
+    - Compass: Digital compass with true-north heading
 
     - AR Ruler: Measure distances in 3D with augmented reality
 
-    - LiDAR Measure: Ultra-precise on Pro iPhones
-
-    - Height Measure: Measure height instantly with AR
-
-    - Measurement History: Save all your measurements
-
-    - PDF & Photo Export: Professional measurement reports
+    - Height Measure: Measure height with AR
 
 
     PERFECT FOR:
@@ -52,19 +42,17 @@ sections:
     WHY CHOOSE US?
 
 
-    - No internet required, works offline
+    - Every measurement is made on your device, with no internet connection needed
 
-    - Professional-grade accuracy
+    - No ads and no account
 
     - Clean, intuitive interface
-
-    - Regular updates & improvements
 
 
     SUBSCRIPTION INFORMATION:
 
 
-    Level Tool Premium unlocks all premium tools listed above.
+    A Level Tool Premium subscription is required to use the tools.
 
 
     - Weekly Subscriptions
@@ -86,7 +74,7 @@ sections:
     Terms of Use: [https://www.apple.com/legal/internet-services/itunes/dev/stdeula/](https://www.apple.com/legal/internet-services/itunes/dev/stdeula/)
 
 
-    Privacy Policy: [https://bgmobiledev.com/privacy](https://bgmobiledev.com/privacy)'
+    Privacy Policy: [https://bgmobiledev.com/level-tool/privacy](/level-tool/privacy)'
   actions:
   - type: Button
     label: Download on the App Store

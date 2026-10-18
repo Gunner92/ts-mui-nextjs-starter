@@ -72,7 +72,7 @@ sections:
     appStoreUrl: https://apps.apple.com/us/app/coin-identifier-rare-value/id6757782909?uo=4
     pageUrl: /coin-identifier
   - type: AppCard
-    title: Stamp Snap - Value Identifier
+    title: Stamp Identifier - Value Range
     description: Discover the history and value of stamps with AI philatelic identification.
     icon: /images/icons/stamp-identifier.png
     category: Identify

@@ -33,7 +33,7 @@ const TICKER = [
     'HearGuard',
     'Matcha',
     'Coin Identifier',
-    'Stamp Snap',
+    'Stamp Identifier',
     'Fossil Scan',
     'Flower ID',
     'Bird ID',
