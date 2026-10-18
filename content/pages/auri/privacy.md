@@ -123,6 +123,21 @@ sections:
       open in Safari.
 
 
+      ## Safety and crisis protocol
+
+
+      Auri is a wellness and self-reflection app, not a medical device, a
+      therapy service or a crisis service, and its coach is an AI, not a person.
+      Every conversation starts by saying so. When a message suggests a risk of
+      self-harm, suicide or harm to others, the App detects this **on the
+      device**, does not continue normal coaching, and shows crisis resources
+      instead: in the US, call or text **988** (Suicide & Crisis Lifeline),
+      chat at 988lifeline.org, or call **911** in an emergency; elsewhere, local
+      emergency numbers and [findahelpline.com](https://findahelpline.com).
+      These resources are available in the App at any time without a purchase.
+      Because conversations never leave your device, we do not see them.
+
+
       ## Your rights and choices
 
 
