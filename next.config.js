@@ -6,6 +6,8 @@ const nextConfig = {
     async redirects() {
         return [
             { source: '/privacy', destination: '/privacy-policy', permanent: false },
+            // Level Tool's in-app privacy link goes to its own page; must stay above the catch-all below.
+            { source: '/privacy/leveltool', destination: '/level-tool/privacy', permanent: false },
             { source: '/privacy/:path*', destination: '/privacy-policy', permanent: false },
             // Mywellness' App Store privacy URL points here (legacy path); keep it valid.
             { source: '/majoritygoals', destination: '/privacy-policy', permanent: false }
