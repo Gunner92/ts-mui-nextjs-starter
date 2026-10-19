@@ -4,7 +4,7 @@ title: Auri Privacy Policy
 sections:
   - type: PrivacySection
     title: Auri Privacy Policy
-    lastUpdated: October 18, 2026
+    lastUpdated: October 19, 2026
     content: >
       This policy describes how BG Mobile Dev ("we", "us", or "our") handles
       information in **Auri: AI Wellbeing Journal** for iPhone and iPad (bundle
@@ -133,10 +133,13 @@ sections:
       suicide, harm to others or being unsafe, the App recognizes this **on the
       device** and shows crisis resources; in the coach, it pauses ordinary
       coaching and responds with care: in the US, call or text **988** (Suicide & Crisis Lifeline),
-      chat at 988lifeline.org, or call **911** in an emergency; elsewhere, local
-      emergency numbers and [findahelpline.com](https://findahelpline.com).
-      These resources are available in the App at any time without a purchase.
-      Because conversations never leave your device, we do not see them.
+      chat at 988lifeline.org, or call **911** in an emergency; for someone who
+      is unsafe at home, the National Domestic Violence Hotline (call
+      1-800-799-7233 or text START to 88788); elsewhere, local emergency numbers
+      and [findahelpline.com](https://findahelpline.com). These resources are
+      available in the App at any time without a purchase. Because conversations
+      never leave your device, we do not see them. Our full
+      [safety and crisis protocol](/auri/safety) is published separately.
 
 
       ## Your rights and choices
